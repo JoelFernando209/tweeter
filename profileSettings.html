@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <link rel="shortcut icon" type="image/png" href="img/logo.png">
+    <link rel='stylesheet' href='./css/index.css'/>
+    
+    <title>Tweeter | Profile Settings</title>
+  </head>
+  <body class='profileSettings body'>
+    
+    <div class='windowPopup'>
+      <span class='heading-2 mg-bottom-sm mg-bottom-sm'>Do you sure you want to delete your account?</span>
+      <span class='important-text mg-top-md windowPopup__warning mg-bottom-sm windowPopup__warning'></span>
+      
+      <form>
+        <label class='input windowPopup__label'>
+          <img src='img/account_circle.svg' class='input__icon'/>
+          
+          <input type='text' placeholder='Enter your name...'Email class='input__input windowPopup__input windowPopup__input--name mg-top-sm mg-top-sm' required/>
+        </label>
+        
+        <a href='http://localhost:8080/login.html' class='color--red ds-block windowPopup__err mg-top-sm'></a>
+        
+        <input type='submit' value='Delete my account!' class='btn btn--red w-20 mg-top-md windowPopup__submit'/>
+        
+      </form>
+    </div>
+    
+    <div class='loading'></div>
+    
+    <header class='header'>
+      <a class='logo header__logo' href='http://localhost:8080/dashboard.html'>
+        <img src='img/logo.png' alt='Logo tweeter' class='logo__img el-sz-md'/>
+        <span class='logo__text txt-sz-md'>Tweeter</span>
+      </a>
+      
+      <div class='header__profile'>
+        <img class='header__img-profile' />
+        
+        <span class='header__name'>&nbsp;</span>
+        
+        <span class='header__arrow'>&rsaquo;</span>
+      </div>
+      
+      <div class='profile__menu menu'>
+        <ul class='menu__ul'>
+          <li class='menu__item color--red menu__item--sign-out'>
+            <div class='menu__icon menu__icon--red'></div>
+            Sign out
+          </li>
+        </ul>
+      </div>
+      
+    </header>
+    
+    <main class='infoProfile profileSettings__main'>
+      <div class='infoProfile__title'>
+        <span class='heading-1-light'>Personal Info</span>
+        <span class='basic-phrase'>Basic Info, like your name and photo</span>
+      </div>
+      
+      <div class='infoProfile__table'>
+        <div class='infoProfile__header-table'>
+          <div class='infoProfile__info'>
+            <span class='heading-2-light'>Profile</span>
+            <span class='basic-phrase'>Some info may be visible to other people</span>
+          </div>
+          
+          <button class='btn btn--transparent-gray infoProfile__edit'>Edit</button>
+        </div>
+        
+        <div class='infoProfile__table-item'>
+          <span class='infoProfile__input-title'>
+            Photo
+          </span>
+          <img src='img/default-profile.jpg' class='infoProfile__photo' />
+        </div>
+        
+        <div class='infoProfile__table-item'>
+          <span class='infoProfile__input-title'>
+            Name
+          </span>
+          <span class='infoProfile__value infoProfile__value--name'></span>
+        </div>
+        
+        <div class='infoProfile__table-item'>
+          <span class='infoProfile__input-title'>
+            Bio
+          </span>
+          <span class='infoProfile__value infoProfile__value--bio'>
+            
+          </span>
+        </div>
+        
+        <div class='infoProfile__table-item'>
+          <span class='infoProfile__input-title'>
+            Phone
+          </span>
+          <span class='infoProfile__value infoProfile__value--phone'>
+            
+          </span>
+        </div>
+        
+        <div class='infoProfile__table-item'>
+          <span class='infoProfile__input-title'>
+            Email
+          </span>
+          <span class='infoProfile__value infoProfile__value--email'>
+            lorem
+          </span>
+        </div>
+        
+      </div>
+    </main>
+    
+    <main class='changeProfile profileSettings__main'>
+      <div class='changeProfile__title'>
+        <span class='heading-1-light'>Change Profile</span>
+        <span class='basic-phrase'>The changes take over 2 minutes to show.</span>
+      </div>
+      
+      
+      <div class='go-back changeProfile__go-back'>
+        <span class='go-back__icon'>&lsaquo;</span>
+        Back
+      </div>
+      
+      <div class='changeProfile__card'>
+        <div class='changeProfile__info'>
+          <span class='heading-1-light'>Change Info</span>
+          <span class='basic-phrase-no-center'>Changes will be reflected to every services</span>
+        </div>
+        
+        <span class='heading-3-light mg-bottom-sm'>Change Banner</span>
+        
+        <div class='changeProfile__banner'>
+          <div class='changeProfile__banner-loading'></div>
+          <img src='img/default-banner.jpg' class='changeProfile__banner-img'/>
+          <input
+            type='file'
+            accept='image/png, image/jpeg, image/jpg'
+            class='changeProfile__banner-btn'
+          />
+        </div>
+        
+        <span class='heading-3-light mg-bottom-sm'>Change Profile Photo</span>
+        
+        <div class='changeProfile__photo'>
+          <div class='changeProfile__photo-loading'></div>
+          <img src='img/default-profile.jpg' class='changeProfile__photo-img'/>
+          <input
+            type='file'
+            accept='image/png, image/jpeg, image/jpg'
+            class='changeProfile__photo-btn'
+          />
+        </div>
+        
+        <form class='changeProfile__form'>
+          <label class='input changeProfile__label' for='changeName'>
+            Name
+            
+            <span class='input__limit'></span>
+            
+            <input type='text' placeholder='Enter your name...' id='changeName' class='input__input changeProfile__input changeProfile__input--name' required/>
+          </label>
+          
+          <label class='input changeProfile__label' for='changeBio'>
+            Bio
+            
+            <span class='input__limit'></span>
+            
+            <textarea placeholder='Enter your bio...' id='changeBio' class='input__input changeProfile__input changeProfile__textarea' required></textarea>
+          </label>
+        
+          <label class='input changeProfile__label' for='changePhone'>
+            Phone (don't include area code LADA)
+            
+            <span class='input__limit'></span>
+            
+            <input type='number' placeholder='Enter your phone...' id='changePhone' class='input__input changeProfile__input changeProfile__input--phone' required/>
+          </label>
+          
+          <label class='input changeProfile__label' for='changePhone'>
+            
+            <button class='btn btn--transparent-red w-20 ds-block mg-bottom-sm changeProfile__deleteAccount'>Delete account</button>
+          </label>
+        
+          <input type='submit' class='btn btn--blue changeProfile__submit' value='Submit changes' required />
+          <div class='color--red changeProfile__err mg-top-sm'></div>
+        </form>
+      </div>
+    </main>
+    
+    <!--Firebase scripts-->
+    
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-storage.js"></script>
+    
+    <!--Normal scripts-->
+    
+    <script src='./src/js/firebaseController.js' type='module'></script>
+    <script src='./src/js/profileSettings.js' type='module'></script>
+    
+    <!--Components-->
+    
+  </body>
+</html>

@@ -1,0 +1,70 @@
+.btn {
+  border: none;
+  border-radius: 3rem;
+  padding: 1rem 0;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .3s;
+  text-align: center;
+  
+  &:focus {
+    outline: none;
+  }
+  
+  &--blue {
+    background-color: $color-primary;
+    color: white;
+    
+    &:hover {
+      background-color: darken($color-primary, 5%);
+    }
+    
+    &:active {
+      background-color: darken($color-primary, 20%);
+    }
+  }
+  
+  &--red {
+    background-color: $color-red;
+    color: white;
+    
+    &:hover {
+      background-color: darken($color-red, 5%);
+    }
+    
+    &:active {
+      background-color: darken($color-red, 20%);
+    }
+  }
+  
+  &--transparent-gray {
+    background-color: transparent;
+    color: rgba(black, .4);
+    
+    border: 1px solid currentColor;
+    
+    &:hover {
+      color: rgba(black, .6);
+    }
+    
+    &:active {
+      color: rgba(black, .7);
+    }
+  }
+  
+  &--transparent-red {
+    background-color: transparent;
+    color: rgba(red, .3);
+    
+    border: 1px solid currentColor;
+    
+    &:hover {
+      color: rgba(red, .6);
+    }
+    
+    &:active {
+      color: rgba(red, .7);
+    }
+  }
+}

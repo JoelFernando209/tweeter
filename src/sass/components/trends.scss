@@ -1,0 +1,47 @@
+.trends {
+  background-color: white;
+  border-radius: 2rem;
+  padding: 1.5rem;
+  
+  &__title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: .5rem 0;
+    border-bottom: $border-transparent-gray;
+    margin-bottom: 1rem;
+  }
+  
+  &__list {
+    list-style: none;
+    height: 90%;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  &__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: .3rem;
+    
+    height: 100%;
+    transition: all .3s;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: $color-gray;
+    }
+  }
+  
+  &__hashtag {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  &__amountTweets {
+    font-size: 1rem;
+    opacity: .7;
+  }
+}

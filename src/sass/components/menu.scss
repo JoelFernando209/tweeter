@@ -1,0 +1,64 @@
+.menu {
+  display: none; /* CHANGE TO FLEX */
+  
+  position: absolute;
+  flex-direction: column;
+  align-items: start;
+  
+  padding: 1rem;
+  border-radius: 1rem;
+  
+  background-color: lighten(#eee, 10%);
+  
+  right: 5rem;
+  top: 9rem;
+  
+  z-index: 1000;
+  
+  &__ul {
+    list-style: none;
+    
+    a {
+      color: black;
+    }
+  }
+  
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    font-weight: 500;
+
+    transition: all .3s;
+    cursor: pointer;
+    width: 100%;
+    height: 3rem;
+    padding: 2rem;
+    
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+    
+    &:hover {
+      background-color: #eee;
+    }
+  }
+  
+  &__icon {
+    width: 2.5rem;
+    padding: 1rem 0;
+    margin-right: .5rem;
+    opacity: .6;
+    
+    &--red {
+      @supports (mask-image: url(../img/logout.svg)) or (-webkit-mask-image: url(../img/logout.svg)) {
+        background-color: red;
+        mask-image: url(../img/logout.svg);
+        -webkit-mask-image: url(../img/logout.svg);
+      }
+      
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+}

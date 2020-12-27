@@ -1,0 +1,11 @@
+.link {
+  text-decoration: none;
+
+  &--blue {
+    color: $color-primary;
+    
+    &:hover {
+      color: darken($color-primary, 50%);
+    }
+  }
+}

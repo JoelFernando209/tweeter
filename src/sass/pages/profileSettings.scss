@@ -1,0 +1,238 @@
+.profileSettings {
+  height: 100vh;
+  
+  display: grid;
+  grid-template-rows: 15% 1fr;
+  
+  &__main {
+    background-color: $background-global;
+  }
+}
+
+.infoProfile {
+  display: flex; /* CHANGE TO FLEX WHEN CHANGE TO NONE */
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 10rem;
+
+  &__title {
+    margin: 3rem 0;
+    text-align: center;
+  }
+
+  &__table {
+    width: 55%;
+    border: $border-transparent-gray;
+    border-radius: 1rem;
+    background-color: white;
+    
+    @include respond(big-desktop) {
+      width: 40%;
+    }
+    
+    @include respond(tablet) {
+      width: 75%;
+      font-size: 1.2rem;
+    }
+    
+    @include respond(sm-phone) {
+      width: 100%;
+      border: none;
+    }
+  }
+  
+  &__header-table {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    height: 10rem;
+    padding: 0 1rem;
+    border-bottom: $border-transparent-gray;
+  }
+  
+  &__edit {
+    width: 10rem;
+    padding: 1rem;
+  }
+  
+  &__table-item {
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    align-items: center;
+
+    height: 7rem;
+    padding: 1rem 5rem;
+    border-bottom: $border-transparent-gray;
+  }
+  
+  &__input-title {
+    text-transform: uppercase;
+    opacity: .2;
+    font-weight: 600;
+    font-size: 1.5rem;
+  }
+  
+  &__photo {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 1rem;
+    object-fit: cover;
+  }
+  
+  &__value {
+    font-size: 1.5rem;
+    font-weight: 500;
+    opacity: .8;
+  }
+  
+  &__info {
+    
+  }
+}
+
+.changeProfile {
+  position: relative;
+  
+  display: none; /* CHANGE TO FLEX*/
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 10rem;
+  
+  &__title {
+    margin: 3rem 0;
+    text-align: center;
+  }
+  
+  &__go-back {
+    position: absolute;
+    left: 22.5%;
+    top: 9.3rem;
+    
+    @include respond(big-desktop) {
+      left: 30%;
+    }
+    
+    @include respond(tablet) {
+      left: 12%;
+    }
+    
+    @include respond(sm-phone) {
+      left: 5%;
+    }
+  }
+  
+  &__card {
+    width: 55%;
+    border: $border-transparent-gray;
+    border-radius: 1rem;
+    padding: 2rem 3rem;
+    background-color: white;
+    
+    @include respond(big-desktop) {
+      width: 40%;
+    }
+    
+    @include respond(tablet) {
+      width: 75%;
+      font-size: 1.2rem;
+    }
+    
+    @include respond(sm-phone) {
+      width: 100%;
+      border: none;
+    }
+  }
+  
+  &__info {
+    margin-bottom: 2.5rem;
+  }
+  
+  &__photo, &__banner {
+    position: relative;
+    
+    display: flex;
+    align-items: center;
+    margin-bottom: 2.5rem;
+  }
+  
+  &__eye {
+    top: 81% !important;
+  }
+  
+  &__photo-loading, &__banner-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 1rem;
+    width: 6.5rem;
+    height: 0%;
+    transform: rotate(180deg);
+    background-color: rgba(#11bf23, .4);
+  }
+  
+  &__banner-loading {
+    width: 15rem;
+  }
+  
+  &__photo-img, &__banner-img {
+    width: 6.5rem;
+    height: 6.5rem;
+    margin-right: 1.5rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    object-fit: cover;
+  }
+  
+  &__banner-img {
+    width: 15rem;
+  }
+  
+  &__photo-btn, &__banner-btn {
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    transition: all .3;
+  }
+  
+  &__form {
+    
+    // To specification and resolve conflicts
+    
+    .changeProfile__textarea {
+      transition: none;
+    }
+    
+    .changeProfile__input {
+      padding-left: 1.5rem;
+    }
+  }
+  
+  &__textarea {
+    max-width: 100%;
+    min-width: 100%;
+  }
+  
+  &__label {
+    margin-bottom: 1rem;
+  }
+  
+  &__input {
+    font-family: inherit;
+    margin-bottom: 2rem;
+  }
+  
+  &__err {
+    opacity: .6;
+    font-size: 1.3rem;
+  }
+  
+  &__submit {
+    width: 30%;
+    
+    @include respond(tablet) {
+      width: 40%;
+    }
+  }
+  
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <link rel="shortcut icon" type="image/png" href="img/logo.png">
+    
+    <link rel='stylesheet' href='./css/index.css'>
+    
+    <title>Tweeter | Sign In</title>
+  </head>
+  <body class='auth-container'>
+    
+    <div class='loading'></div>
+    
+    <main class='auth'>
+      
+      <div class='mg-right-md'>
+        <div class='logo auth__logo mg-bottom-md flex-align-start'>
+          <img src='img/logo.png' alt='Logo tweeter' class='logo__img'/>
+          <span class='logo__text'>Tweeter</span>
+        </div>
+        
+        <h3 class='auth__title mg-bottom-sm'>Know everything that's happening in the world right now!</h3>
+        
+        <span class='auth__desc'>
+          Tweeter is a place where you can talk and share moments, show your position and join to the biggest community on the Internet!
+        </span>
+      </div>
+      
+      <div class='buffer'></div>
+      
+      <div>
+        <form class='auth__form auth__form--index'>
+          <label class='input'>
+            <img src='img/user-icon.svg' alt='Name icon' class='input__icon'/>
+            
+            <input type='text' placeholder='Your name' class='input__input auth__input--name mg-top-sm' required />
+          </label>
+          
+          <label class='input'>
+            <img src='img/email-icon.svg' alt='Email icon' class='input__icon'/>
+            
+            <input type='email' placeholder='Email' class='input__input auth__input--email mg-top-sm' required />
+          </label>
+          
+          <label class='input'>
+            <img src='img/lock.svg' alt='Password icon' class='input__icon'/>
+            
+            <img src='img/eye-on.svg' alt='Password icon' class='input__eye'/>
+            
+            <input type='password' placeholder='Password' class='input__input auth__input--pw mg-top-sm' required />
+            
+          </label>
+          
+          <input type='submit' class='btn btn--blue mg-top-md w-100' value='Access Tweeter!'>
+          <span class='auth__err auth__err--index'>&nbsp;</span>
+        </form>
+        
+        <span class='basic-phrase mg-top-sm'>or continue with these auth options...</span>
+        
+        <div class='auth__social'>
+          <div class='auth__social-item auth__social-item--fb'>
+            
+            <img
+              src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDI0IDI0IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCI+PHJlY3QgZmlsbD0ibm9uZSIgaGVpZ2h0PSIyNCIgd2lkdGg9IjI0Ii8+PHBhdGggZD0iTTIyLDEyYzAtNS41Mi00LjQ4LTEwLTEwLTEwUzIsNi40OCwyLDEyYzAsNC44NCwzLjQ0LDguODcsOCw5LjhWMTVIOHYtM2gyVjkuNUMxMCw3LjU3LDExLjU3LDYsMTMuNSw2SDE2djNoLTIgYy0wLjU1LDAtMSwwLjQ1LTEsMXYyaDN2M2gtM3Y2Ljk1QzE4LjA1LDIxLjQ1LDIyLDE3LjE5LDIyLDEyeiIvPjwvc3ZnPg=='
+              class='auth__social-img'
+              title='Facebook'
+            />
+            
+          </div>
+          
+          <div class='auth__social-item auth__social-item--google'>
+            
+            <img
+              src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABYElEQVRIieXVO0scYRTG8Z+Xwko0EMMaRQgpjOWCfSA2hlSCoNZByEcIaVMHtkgQv4D4DbRKkKiICNpEYquuNmKwM8tmU8wOGWdn55ZKfODA8HKe/znvvDcegp7jA77jHL9xiT18xFRZ8COsoIFWSjSxhpEi8EmcZIDjcdZuKlMVnBaE/8G7PPAe7CQADrCAx+28YcwJ1qWJt3ngsJgA/4S+lIam88JhPwZfK2LO0rjgX4bwW4z+L7Q/8l0VTDnUV9QTPPNYzuC2MItmtEAllnTcxTyBmYwC8AT13hyJZdWCaIGLWELpK6AN/xUfHNO5yE8TzAOCcxCN1+7uvh/dKse36bq7C5+kHmzEfF+6JS/oPGg16QetluCppnWznWA4xJJ/N+Yg3uBbQu5m2nQpd9mFcSXYxpmaxM+C8Bu8zAMPNYTPghcsC76LF0XgUT3De2wJHpUGrnGEVbwqC74f+gsL/Z79dQlZNgAAAABJRU5ErkJggg=='
+              class='auth__social-img'
+              title='Google'
+              alt='Google Login'
+            />
+            
+          </div>
+          
+          <div class='auth__social-item auth__social-item--github'>
+            
+            <img
+              src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABfElEQVRIidXVMU8UQRjG8R93UlwDdIaCwk4kMUD8CCaIFyIBeyz9FEYh0WBpaSehpLCAws7almgEbSwEpZDYQMVBsbtheZm9vbuOJ5lsdt/n+c/O7OwMN11DNfUmHuEpZjCRZw7xBdv4iLNBOp/DHs5r2k+0+wEP4RU6PcCL1sFb9TMC1voAx7ZWB2+HwCwWsJuA7WMZd8Pz+Sr4Ldl8ls3Dea2F6fzawn2M5rVmyHwv5a5oMfGWd+qGjNuJ3EJRbJSMyyH4Q7Yc6/RfNl1lRRb4Gt5iqQd4oSchu5syHQXTSB8djITsv6JQnqKGwRXXfysF/RVMlcstocfh/m/K9N7VYf7GZA/wezgI2a2Ucd715XaK1zkkagpvck/MraQ6aLj8Y19gpxR4l/BvJMDn+KP0DaIeyrbeE4zjUx4YrxhBqoNnVfBCL3Pjeo2vkYB/qIMXWpVtwd/wuYuvDN9UsQdVaU62cXU7rTo4xnM9ngVRTTzoUm9jbBDwzdEFbw2dumnXbXIAAAAASUVORK5CYII='
+              class='auth__social-img'
+              title='Github'
+            />
+            
+          </div>
+        </div>
+        
+        <div class='auth__login-link basic-phrase'>
+          Already a member? <a href='http://localhost:8080/login.html' class='link link--blue'>Login</a>
+        </div>
+      </div>
+      
+      
+    </main>
+    
+    <!--Firebase scripts-->
+    
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
+
+    <!--Normal Scripts-->
+    
+    <script src='./src/js/firebaseController.js' type='module'></script>
+    <script src='./src/js/index.js' type='module'></script>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+.windowPopup {
+  @include centerXY;
+  
+  position: fixed;
+  background-color: rgba(white, .9);
+  border: $border-transparent-gray;
+
+  padding: 2rem;
+  width: 60%;
+
+  border-radius: 2rem;
+  z-index: 1000;
+  transition: all .3s;
+  
+  opacity: 0;
+  visibility: hidden;
+  transition: all .6s;
+}

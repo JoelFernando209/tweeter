@@ -1,0 +1,66 @@
+.input {
+  position: relative;
+
+  &__icon {
+    position: absolute;
+    top: 1.14rem;
+    left: 1.2rem;
+    
+    width: 2rem;
+    height: 2rem;
+    
+    transform: translateY(-50%);
+    opacity: .2;
+  }
+  
+  &__eye {
+    display: none;
+    
+    position: absolute;
+    top: 1.14rem;
+    right: 1.2rem;
+    
+    width: 2rem;
+    height: 2rem;
+    
+    transform: translateY(-50%);
+    opacity: .2;
+    cursor: pointer;
+    transition: all .3s;
+    
+    &:hover {
+      opacity: .6;
+    }
+  }
+  
+  &__input {
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    border: $border-transparent-gray;
+    border-radius: 1rem;
+    transition: all .3s;
+    padding-left: 4rem;
+    font-size: inherit;
+
+    &:focus {
+      outline: none;
+    }
+    
+    &:placeholder-shown {
+      border: 1px solid rgba(black, .65);
+    }
+    
+    &:focus:required:invalid {
+      border: 1px solid red;
+    }
+  }
+  
+  &__limit {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: .4;
+  }
+}

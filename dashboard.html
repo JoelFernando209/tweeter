@@ -1,0 +1,305 @@
+<html lang='en'>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <link rel="shortcut icon" type="image/png" href="img/logo.png">
+    <link rel='stylesheet' href='./css/index.css' />
+    
+    <title>Tweeter | Dashboard</title>
+  </head>
+  <body class='header-main-layout body'>
+    
+    <div class='loading'></div>
+    
+    <div class='dashboard'>
+      <header class='header dashboard__header'>
+        <a class='logo header__logo' href='http://localhost:8080/dashboard.html'>
+          <img src='img/logo.png' alt='Logo tweeter' class='logo__img el-sz-md'/>
+          <span class='logo__text txt-sz-md'>Tweeter</span>
+        </a>
+        
+        <ul class='header__sections'>
+          <li class='header__item'><a href='#'>Home</a></li>
+          <li class='header__item'><a href='#'>Explore</a></li>
+          <li class='header__item'><a href='#'>Bookmarks</a></li>
+        </ul>
+        
+        <div class='header__profile'>
+          <img class='header__img-profile' />
+          
+          <span class='header__name'>&nbsp;</span>
+          
+          <span class='header__arrow'>&rsaquo;</span>
+        </div>
+        
+        <div class='profile__menu menu'>
+          <ul class='menu__ul'>
+            <li>
+              <a href='http://localhost:8080/profileSettings.html' class='menu__item'>
+                <img src='img/account_circle.svg' class='menu__icon'/>
+                My profile
+              </a>
+            </li>
+            <li class='menu__item color--red menu__item--sign-out'>
+              <div class='menu__icon menu__icon--red'></div>
+              Sign out
+            </li>
+          </ul>
+        </div>
+        
+      </header>
+    
+      <main class='dashboard__main'>
+        <div class='dashboard__gridMain'>
+          
+          <div class='dashboard__tweet tweet'>
+            <div class='important-text tweet__title'>Tweet something</div>
+            
+            <div class='tweet__dataTweet'>
+              <img src='./img/default-profile.jpg' alt='Profile' class='tweet__profileImg' />
+              
+              <textarea class='tweet__textarea' placeholder="What's happening?"></textarea>
+            </div>
+            
+            
+            <div class='tweet__buttons'>
+              <div class='tweet__addImg'></div>
+              
+              <div class='tweet__replyConfig'>
+                <div class='tweet__world'></div>
+                
+                <span class='tweet__replyStatus'>
+                  Everyone can reply
+                </span>
+              </div>
+              
+              <button class='btn btn--blue w-25 tweet__submit'>Tweet</button>
+            </div>
+          </div>
+          
+          <div class='dashboard__trends trends'>
+            <div class='important-text trends__title'>Trends for you</div>
+            
+            <ul class='trends__list'>
+              <li class='trends__item'>
+                <span class='trends__hashtag'>#programming</span>
+                <span class='trends__amountTweets'>21k tweets</span>
+              </li>
+              
+              <li class='trends__item'>
+                <span class='trends__hashtag'>#devchallenges</span>
+                <span class='trends__amountTweets'>21k tweets</span>
+              </li>
+              
+              <li class='trends__item'>
+                <span class='trends__hashtag'>#frontend</span>
+                <span class='trends__amountTweets'>21k tweets</span>
+              </li>
+              
+              <li class='trends__item'>
+                <span class='trends__hashtag'>#helsinki</span>
+                <span class='trends__amountTweets'>21k tweets</span>
+              </li>
+              
+              <li class='trends__item'>
+                <span class='trends__hashtag'>#100DaysOfCode</span>
+                <span class='trends__amountTweets'>21k tweets</span>
+              </li>
+              
+              <li class='trends__item'>
+                <span class='trends__hashtag'>#learntocode</span>
+                <span class='trends__amountTweets'>21k tweets</span>
+              </li>
+            </ul>
+          </div>
+          
+          <div class='dashboard__follow follow'>
+            <div class='important-text follow__title'>Who to follow</div>
+            
+            <div class='follow__item'>
+              <div class='follow__profile'>
+                <img src='img/default-profile.jpg' alt='Profile picture' class='follow__profileImg' />
+                
+                <div class='follow__profileInfo'>
+                  <span class='important-text follow__name'>Joel Fernando</span>
+                  <span class='follow__amountFollowers'>24k Followes</span>
+                </div>
+                
+                <button class='btn btn--blue follow__btnFollow'>
+                  <img src='img/add-follower.svg' alt='Add Follower' class='follow__btnFollowIcon'/>
+                  Follow
+                </button>
+              </div>
+              
+              <div class='follow__bio'>
+                This is an epic bio follow me xdxdxdxdxddThis is an epic bio follow me xdxdxdxdxddThis is an epic bio follow me xdxdxdxdxddThis is an epic bio follow me xdxdxdxdxdd
+              </div>
+              
+              <img src='./img/default-banner.jpg' alt='Banner Image' class='follow__bannerImg' />
+            </div>
+            
+            <div class='follow__item'>
+              <div class='follow__profile'>
+                <img src='img/default-profile.jpg' alt='Profile picture' class='follow__profileImg' />
+                
+                <div class='follow__profileInfo'>
+                  <span class='important-text follow__name'>Joel Fernando</span>
+                  <span class='follow__amountFollowers'>24k Followes</span>
+                </div>
+                
+                <button class='btn btn--blue follow__btnFollow'>
+                  <img src='img/add-follower.svg' alt='Add Follower' class='follow__btnFollowIcon'/>
+                  Follow
+                </button>
+              </div>
+              
+              <div class='follow__bio'>
+                This is an epic bio follow me xdxdxdxdxddThis is an epic bio follow me xdxdxdxdxddThis is an epic bio follow me xdxdxdxdxddThis is an epic bio follow me xdxdxdxdxdd
+              </div>
+              
+              <img src='./img/default-banner.jpg' alt='Banner Image' class='follow__bannerImg' />
+            </div>
+          </div>
+          
+          <div class='dashboard__tweetPosts'>
+            <div class='post'>
+              <div class='post__profile'>
+                <img src='img/default-profile.jpg' alt='Profile picture' class='post__profileImg' />
+                
+                <div class='post__profileInfo'>
+                  <span class='important-text post__name'>Joel Fernando Dominguez</span>
+                  <span class='post__date'>24 August at 20:43</span>
+                </div>
+              </div>
+              
+              <div class='post__tweetText'>
+                Ok, now this is epic Ok, now this is epic Ok, now this is epic Ok, now this is epic Ok, now this is epic Ok, now this is epic Ok, now this is epic Ok, now this is epic Ok, now this is epic Ok, now this is epic Ok, now this is epic Ok, now this is epic Ok, now this is epic Ok, now this is epic Ok, now this is epic Ok, now this is epic Ok, now this is epic Ok, now this is epic Ok, now this is epic Ok, now this is epic Ok, now this is epic Ok, now this is epic Ok, now this is epic Ok, now this is epic
+              </div>
+              
+              <div class='post__tweetImg-box'>
+                <img src='./img/default-banner.jpg' class='post__tweetImg' />
+              </div>
+              
+              <div class='post__data'>
+                <span class='post__dataItem post__dataComments'>449 Comments</span>
+                <span class='post__dataItem post__dataRetweets'>59k Retweets</span>
+                <span class='post__dataItem post__dataSaved'>234 saved</span>
+              </div>
+              
+              <div class='post__options'>
+                <div class='post__optionsItem post__optionsItem--comment'>
+                  <object data="./img/comment-icon.svg" type="image/svg+xml" class='post__optionsIcon'></object>
+                  Comment
+                </div>
+                
+                <div class='post__optionsItem post__optionsItem--retweet'>
+                  <object data="./img/retweet-icon.svg" type="image/svg+xml" class='post__optionsIcon'></object>
+                  Retweet
+                </div>
+                
+                <div class='post__optionsItem post__optionsItem--like'>
+                  <object data="./img/like-icon.svg" type="image/svg+xml" class='post__optionsIcon'></object>
+                  Like
+                </div>
+                
+                <div class='post__optionsItem post__optionsItem--save'>
+                  <object data="./img/save-icon.svg" type="image/svg+xml" class='post__optionsIcon'></object>
+                  Save
+                </div>
+              </div>
+              
+              <div class='post__comments'>
+                <div class='post__postComment'>
+                  <img src='./img/default-profile.jpg' class='post__commentPicture' alt='Profile Picture' />
+                  
+                  <label class='post__commentInputBox' for='inputComment'>
+                    
+                    <img src='img/add-image.svg' alt='addImage' class='post__commentInputIcon' title='Add an image to your comment'/>
+                    
+                    <input type='text' class='post__postCommentInput' id='inputComment' placeholder='Tweet your reply' />
+                  </label>
+                  
+                  <div class='post__postCommentIcon'></div>
+                </div>
+                
+                <div class='post__postComment'>
+                  <img src='./img/default-profile.jpg' class='post__commentPicture' alt='Profile picture' />
+                  
+                  <div class='post__commentTextBox'>
+                    <div class='post__commentInfo'>
+                      <span class='important-text post__commentName'>Waqar Bloom</span>
+                      <span class='post__commentDate'>24 August at 20:43</span>
+                    </div>
+                    
+                    <div class='post__commentText'>
+                      Ok this is epic part 2 Ok this is epic part 2 Ok this is epic part 2 Ok this is epic part 2 Ok this is epic part 2
+                    </div>
+                  </div>
+                  
+                  <div class='post__commentOptions'>
+                    <span class='post__commentOptionsItem'>
+                      <object data="./img/like-icon.svg" type="image/svg+xml" class='post__commentOptionsIcon'></object>
+                      Like
+                    </span>
+                    
+                    <span class='post__commentOptionsItem post__commentOptionsItem--amountLikes'>
+                      12k Likes
+                    </span>
+                  </div>
+                  
+                </div>
+              </div>
+              
+              <div class='post__postComment'>
+                  <img src='./img/default-profile.jpg' class='post__commentPicture' alt='Profile picture' />
+                  
+                  <div class='post__commentTextBox'>
+                    <div class='post__commentInfo'>
+                      <span class='important-text post__commentName'>Waqar Bloom</span>
+                      <span class='post__commentDate'>24 August at 20:43</span>
+                    </div>
+                    
+                    <div class='post__commentText'>
+                      Ok this is epic part 2 Ok this is epic part 2 Ok this is epic part 2 Ok this is epic part 2 Ok this is epic part 2
+                    </div>
+                  </div>
+                  
+                  <div class='post__commentOptions'>
+                    <span class='post__commentOptionsItem'>
+                      <object data="./img/like-icon.svg" type="image/svg+xml" class='post__commentOptionsIcon'></object>
+                      Like
+                    </span>
+                    
+                    <span class='post__commentOptionsItem post__commentOptionsItem--amountLikes'>
+                      12k Likes
+                    </span>
+                  </div>
+                  
+                </div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+    
+    <!--Firebase scripts-->
+    
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-firestore.js"></script>
+    
+    <!--Normal scripts-->
+    
+    <script src='./src/js/firebaseController.js' type='module'></script>
+    <script src='./src/js/dashboard.js' type='module'></script>
+    
+    <!--Components-->
+    
+  </body>
+</html>

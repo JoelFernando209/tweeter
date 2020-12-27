@@ -1,0 +1,17 @@
+{
+  "name": "webpack-app-change-this",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "node-sass": "^5.0.0"
+  },
+  "scripts": {
+    "start": "npx webpack serve",
+    "scss:css": "node-sass ./src/sass/main.scss ./css/index.css -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}

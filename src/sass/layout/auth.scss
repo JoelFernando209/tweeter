@@ -1,0 +1,129 @@
+.auth {
+  max-width: 45rem;
+
+  border: $border-transparent-gray;
+  border-radius: 15px;
+  
+  padding: 2rem 3.5rem;
+  
+  box-shadow: 2rem 4rem 3rem rgba(black, .1);
+  
+  @include centerXY;
+  
+  @include respond(desktop) {
+    width: 75rem;
+    max-width: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  @include respond(tablet) {
+    display: block;
+    max-width: 45rem;
+    width: none;
+    padding: 1rem 2.5rem;
+  }
+  
+  @include respond(sm-phone) {
+    max-width: none;
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    
+    border-top: 15px solid $color-primary;
+    padding-top: 3rem;
+    box-shadow: none;
+  }
+  
+  &__logo {
+    @include respond(desktop) {
+      position: absolute;
+      top: 3rem;
+      left: 3.5rem;
+    }
+    
+    @include respond(tablet) {
+      position: static;
+    }
+  }
+  
+  &__title {
+    font-size: 2.5rem;
+    opacity: .8;
+    
+    @include respond(desktop) {
+      font-size: 2rem;
+    }
+    
+    @include respond(tablet) {
+      font-size: 2.5rem;
+    }
+    
+    @include respond(sm-phone) {
+      margin-bottom: 2rem;
+    }
+  }
+  
+  &__err {
+    opacity: .6;
+    font-size: 1rem;
+    color: red;
+  }
+  
+  &__desc {
+    font-size: 1.5rem;
+    opacity: .8;
+  }
+  
+  &__form {
+    @include respond(sm-phone) {
+      margin-top: 2rem;
+    }
+  }
+  
+  &__social {
+    display: flex;
+    justify-content: center;
+    backface-visibility: hidden;
+     
+    margin: .5rem 0;
+  }
+  
+  &__social-item {
+    position: relative;
+    
+    border: $border-transparent-gray;
+    border-radius: 50%;
+    width: 4rem;
+    height: 4rem;
+    cursor: pointer;
+    
+    &:not(:last-child) {
+      margin-right: 2rem;
+    }
+  }
+  
+  &__social-item:hover &__social-img {
+    width: 4rem;
+    height: 4rem;
+    opacity: .6;
+  }
+  
+  &__social-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all .3s;
+    opacity: .4;
+    
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  &__login-link {
+    
+  }
+}

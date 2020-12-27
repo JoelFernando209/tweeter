@@ -1,0 +1,96 @@
+.dashboard {
+  display: grid;
+  grid-template-rows: 6.5rem 1fr;
+
+  @include respond(phone) {
+    grid-template-rows: 9.5rem;
+  }
+  
+  &__header {
+    grid-row: 1 / 2;
+  }
+  
+  &__main {
+    grid-row: 3 / 4;
+
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+  }
+  
+  &__gridMain {
+    margin: 2rem 0;
+    
+    display: grid;
+    grid-gap: 2rem;
+    width: 75%;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: repeat(4, [row-start] 18rem [row-end]);
+    
+    @include respond(laptop) {
+      grid-template-rows: repeat(6, [row-start] 18rem [row-end]);
+      width: 80%;
+    }
+    
+    @include respond(phone) {
+      grid-template-rows: repeat(8, [row-start] 18rem [row-end]);
+    }
+    
+    @include respond(sm-phone) {
+      width: 100%;
+    }
+  }
+  
+  &__tweet {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    
+    @include respond(laptop) {
+      grid-column: 1 / -1;
+    }
+  }
+  
+  &__trends {
+    grid-column: 2 / 3;
+    grid-row: row-start 1 / row-end 2;
+    
+    @include respond(laptop) {
+      grid-column: 2 / 3;
+      grid-row: row-start 2 / row-end 4;
+    }
+    
+    @include respond(phone) {
+      grid-column: 1 / -1;
+      grid-row: row-start 5 / row-end 6;
+    }
+  }
+  
+  &__follow {
+    grid-column: 2 / 3;
+    grid-row: row-start 3 / row-end 4;
+  
+    @include respond(laptop) {
+      grid-column: 1 / 2;
+      grid-row: row-start 2 / row-end 4;
+    }
+    
+    @include respond(phone) {
+      grid-column: 1 / -1;
+    }
+  }
+  
+  &__tweetPosts {
+    grid-column: 1 / 2;
+    grid-row: row-start 2 / row-end 3;
+    
+    @include respond(laptop) {
+      grid-row: row-start 5 / row-end 6;
+    }
+    
+    @include respond(phone) {
+      grid-column: 1 / -1;
+      grid-row: row-start 7 / row-end 8;
+    }
+  }
+}

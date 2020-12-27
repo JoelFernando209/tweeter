@@ -1,0 +1,80 @@
+.follow {
+  background-color: white;
+  border-radius: 2rem;
+  padding: 1.5rem;
+  overflow-y: auto;
+  
+  &__title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: .5rem 0;
+    border-bottom: $border-transparent-gray;
+    margin-bottom: 1rem;
+  }
+  
+  &__item {
+    &:not(:last-child) {
+      padding-bottom: 1rem;
+      border-bottom: $border-transparent-gray;
+      margin-bottom: 2rem;
+    }
+  }
+  
+  &__profile {
+    display: flex;
+    align-items: center;
+    margin: 2rem 0;
+  }
+  
+  &__profileImg {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: $borderRadius-profilePicture;
+    margin-right: .5rem;
+  }
+  
+  &__profileInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  &__name {
+    font-weight: 700;
+    font-size: 1.3rem;
+  }
+  
+  &__amountFollowers {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+  
+  &__btnFollow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 7rem;
+    border-radius: 1rem;
+    margin-left: auto;
+    
+    @include respond(laptop) {
+      width: 30%;
+    }
+  }
+  
+  &__btnFollowIcon {
+    margin-right: .5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  
+  &__bio {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  &__bannerImg {
+    width: 100%;
+    border-radius: 1rem;
+  }
+}

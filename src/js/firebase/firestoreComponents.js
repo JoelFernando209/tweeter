@@ -21,13 +21,16 @@ export const uploadTweet = ({ tweetVal, catchFunc, catchErrElement }) => {
       docObj: tweetObj
     })
     .then(() => {
-      tweetErr.innerHTML = '';
+      catchErrElement.innerHTML = '';
     })
     .catch(err => {
       catchErrElement.innerHTML = err.message;
+      return;
     });
     
-    return tweetObj;
+    return {
+      tweet: tweetObj
+    };
   } else {
     catchFunc();
     return;

@@ -1,6 +1,6 @@
 import { changeColorWhenClick } from '../general/domComponents.js';
 
-export const setOptionsItemColorEvent = (element, newColor, newText, path, lastPath, funcHandler = () => null) => {
+export const setOptionsItemColorEvent = ({ element, newColor, path, lastPath, funcHandler = () => null } = {}) => {
   element.forEach(item => {
     const eventItem = changeColorWhenClick(item, '#7E7E7E', newColor, path, lastPath);
     item.addEventListener('click', () => {

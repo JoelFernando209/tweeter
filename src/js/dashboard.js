@@ -1,8 +1,8 @@
-import { createProcess } from './general/generalFunc.js';
+import { createProcess, setLoadingPage, removeLoadingPage, formatName } from './general/generalFunc.js';
 import { actualUrl } from './actualUrl.js';
-import { setLoadingPage, removeLoadingPage, formatName } from './general/generalFunc.js';
 import { uploadTweet } from './firebase/firestoreComponents.js';
 import { setOptionsItemColorEvent } from './tweet/tweetStyleComponents.js';
+import { createNewTweetElement, prependChild } from './general/domComponents.js';
 
 const headerName = document.querySelector('.header__name');
 const headerProfile = document.querySelector('.header__img-profile');
@@ -56,17 +56,37 @@ firebase.auth().onAuthStateChanged(user => {
   }
 })
 
-optionsItemComment.forEach(element => {
-  element.addEventListener('click', () => {
-    const commentInputActualPost = element.parentNode.parentNode.querySelector('.post__postCommentInput');
-    
-    commentInputActualPost.focus();
-  })
-})
+const setCommentOptionEvent = () => {
+  optionsItemComment.forEach(element => {
+    element.addEventListener('click', () => {
+      const commentInputActualPost = element.parentNode.parentNode.querySelector('.post__postCommentInput');
+      
+      commentInputActualPost.focus();
+    });
+  });
+}
 
-setOptionsItemColorEvent(optionsItemRetweet, '#55BF82', 'Retweeted', './img/retweet-icon-full.svg', './img/retweet-icon.svg');
-setOptionsItemColorEvent(optionsItemLike, '#EC6060', 'Liked', './img/like-icon-full.svg', './img/like-icon.svg');
-setOptionsItemColorEvent(optionsItemSave, '#5FB4E4', 'Saved', './img/save-icon-full.svg', './img/save-icon.svg');
+
+setOptionsItemColorEvent({
+  element: optionsItemRetweet,
+  newColor: '#55BF82',
+  path: './img/retweet-icon-full.svg',
+  lastPath: './img/retweet-icon.svg'
+});
+
+setOptionsItemColorEvent({
+  element: optionsItemLike,
+  newColor: '#EC6060',
+  path: './img/like-icon-full.svg',
+  lastPath: './img/like-icon.svg'
+});
+
+setOptionsItemColorEvent({
+  element: optionsItemSave,
+  newColor: '#5FB4E4',
+  path: './img/save-icon-full.svg',
+  lastPath: './img/save-icon.svg'
+});
 
 const profileMenuHandler = () => {
   let eventHandler = false
@@ -104,6 +124,8 @@ tweetSubmitBtn.addEventListener('click', () => {
     
     const tweetSubmitProcess = createProcess(
       [
+        prependChild,
+        createNewTweetElement,
         uploadTweet
       ],
       {

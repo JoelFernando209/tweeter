@@ -6,7 +6,7 @@ export const getServerTimestamp = () => firebase.firestore.FieldValue.serverTime
 
 export const addDoc = ({ collectionTarget, docObj }) => firestore.collection(collectionTarget).add(docObj);
 
-export const uploadTweet = ({ tweetVal, catchFunc }) => {
+export const uploadTweet = ({ tweetVal, catchFunc, catchErrElement }) => {
   if(userVerified()) {
     const tweetObj = {
       tweetValue: tweetVal,
@@ -20,6 +20,12 @@ export const uploadTweet = ({ tweetVal, catchFunc }) => {
       collectionTarget: 'tweets',
       docObj: tweetObj
     })
+    .then(() => {
+      tweetErr.innerHTML = '';
+    })
+    .catch(err => {
+      catchErrElement.innerHTML = err.message;
+    });
     
     return tweetObj;
   } else {

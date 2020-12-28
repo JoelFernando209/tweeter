@@ -97,25 +97,35 @@ signOutMenu.addEventListener('click', () => {
 
 tweetSubmitBtn.addEventListener('click', () => {
   const tweetTextArea = document.querySelector('.tweet__textarea');
+  const tweetErr = document.querySelector('.tweet__err')
   
-  const tweetSubmitProcess = createProcess(
-    [
-      uploadTweet
-    ],
-    {
-      tweetVal: tweetTextArea.value,
-      catchFunc: () => {
-        document.querySelector('.body').innerHTML = `
-          <div class='popup'>
-            <span class='heading-2'>You need to be authenticated to perform this action.</span>
-            <span class='heading-4'>
-              Maybe you can <a href='http://localhost:8080'>sign in</a> or check the verification email to start knowing the news of all the world!
-            </span>
-          </div>
-        `
+  if(tweetTextArea.value.length > 0) {
+    tweetErr.innerHTML = '';
+    
+    const tweetSubmitProcess = createProcess(
+      [
+        uploadTweet
+      ],
+      {
+        tweetVal: tweetTextArea.value,
+        catchFunc: () => {
+          document.querySelector('.body').innerHTML = `
+            <div class='popup'>
+              <span class='heading-2'>You need to be authenticated to perform this action.</span>
+              <span class='heading-4'>
+                Maybe you can <a href='http://localhost:8080'>sign in</a> or check the verification email to start knowing the news of all the world!
+              </span>
+            </div>
+          `
+        },
+        catchErrElement: tweetErr
       }
-    }
-  );
+    );
+    
+    tweetSubmitProcess();
+    
+  } else {
+    tweetErr.innerHTML = '*Please put a valid description.';
+  }
   
-  tweetSubmitProcess();
 })

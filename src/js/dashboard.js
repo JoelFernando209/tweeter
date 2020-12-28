@@ -58,9 +58,9 @@ firebase.auth().onAuthStateChanged(user => {
 
 optionsItemComment.forEach(element => {
   element.addEventListener('click', () => {
-    const commentInput = document.querySelector('.post__postCommentInput');
+    const commentInputActualPost = element.parentNode.parentNode.querySelector('.post__postCommentInput');
     
-    commentInput.focus();
+    commentInputActualPost.focus();
   })
 })
 

@@ -2,6 +2,7 @@ import { createProcess } from './general/generalFunc.js';
 import { actualUrl } from './actualUrl.js';
 import { setLoadingPage, removeLoadingPage, formatName } from './general/generalFunc.js';
 import { uploadTweet } from './firebase/firestoreComponents.js';
+import { setOptionsItemColorEvent } from './tweet/tweetStyleComponents.js';
 
 const headerName = document.querySelector('.header__name');
 const headerProfile = document.querySelector('.header__img-profile');
@@ -15,6 +16,11 @@ const profileMenu = document.querySelector('.profile__menu');
 const tweetSubmitBtn = document.querySelector('.tweet__submit');
 
 const authPopup = document.querySelector('.auth--popup');
+
+const optionsItemComment = document.querySelectorAll('.post__optionsItem--comment');
+const optionsItemRetweet = document.querySelectorAll('.post__optionsItem--retweet');
+const optionsItemLike = document.querySelectorAll('.post__optionsItem--like');
+const optionsItemSave = document.querySelectorAll('.post__optionsItem--save');
 
 let wasSignedIn = false; // To show other message when signed out and dont to require that needs to be authneticated.
 
@@ -49,6 +55,18 @@ firebase.auth().onAuthStateChanged(user => {
     }
   }
 })
+
+optionsItemComment.forEach(element => {
+  element.addEventListener('click', () => {
+    const commentInput = document.querySelector('.post__postCommentInput');
+    
+    commentInput.focus();
+  })
+})
+
+setOptionsItemColorEvent(optionsItemRetweet, '#55BF82', 'Retweeted', './img/retweet-icon-full.svg', './img/retweet-icon.svg');
+setOptionsItemColorEvent(optionsItemLike, '#EC6060', 'Liked', './img/like-icon-full.svg', './img/like-icon.svg');
+setOptionsItemColorEvent(optionsItemSave, '#5FB4E4', 'Saved', './img/save-icon-full.svg', './img/save-icon.svg');
 
 const profileMenuHandler = () => {
   let eventHandler = false

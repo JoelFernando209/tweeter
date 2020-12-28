@@ -942,8 +942,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    position: relative;
     flex: 1;
     height: 4rem;
+    user-select: none;
     transition: all .3s;
     cursor: pointer;
     margin-bottom: 1rem;
@@ -970,6 +973,12 @@ body {
     */ }
     .post__optionsItem:hover {
       background-color: #e6e6e6; }
+  .post__optionsItemText {
+    position: relative;
+    transition: all 1s cubic-bezier(0.23, 1, 0.32, 1.1); }
+  .post__optionsItemTextItem--first {
+    position: absolute;
+    top: -5rem; }
   .post__postComment {
     position: relative;
     display: flex;

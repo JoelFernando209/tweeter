@@ -1,8 +1,8 @@
 import { createProcess, setLoadingPage, removeLoadingPage, formatName } from './general/generalFunc.js';
 import { actualUrl } from './actualUrl.js';
 import { uploadTweet } from './firebase/firestoreComponents.js';
-import { setOptionsItemColorEvent } from './tweet/tweetStyleComponents.js';
-import { createNewTweetElement, prependChild } from './general/domComponents.js';
+import { setOptionsItemColorEvent, setOptionEventsTweets } from './tweet/tweetStyleComponents.js';
+import { createNewTweetElement, prependChild, profileMenuHandler } from './general/domComponents.js';
 
 const headerName = document.querySelector('.header__name');
 const headerProfile = document.querySelector('.header__img-profile');
@@ -16,11 +16,6 @@ const profileMenu = document.querySelector('.profile__menu');
 const tweetSubmitBtn = document.querySelector('.tweet__submit');
 
 const authPopup = document.querySelector('.auth--popup');
-
-const optionsItemComment = document.querySelectorAll('.post__optionsItem--comment');
-const optionsItemRetweet = document.querySelectorAll('.post__optionsItem--retweet');
-const optionsItemLike = document.querySelectorAll('.post__optionsItem--like');
-const optionsItemSave = document.querySelectorAll('.post__optionsItem--save');
 
 let wasSignedIn = false; // To show other message when signed out and dont to require that needs to be authneticated.
 
@@ -56,56 +51,12 @@ firebase.auth().onAuthStateChanged(user => {
   }
 })
 
-const setCommentOptionEvent = () => {
-  optionsItemComment.forEach(element => {
-    element.addEventListener('click', () => {
-      const commentInputActualPost = element.parentNode.parentNode.querySelector('.post__postCommentInput');
-      
-      commentInputActualPost.focus();
-    });
-  });
-}
+setOptionEventsTweets();
 
-
-setOptionsItemColorEvent({
-  element: optionsItemRetweet,
-  newColor: '#55BF82',
-  path: './img/retweet-icon-full.svg',
-  lastPath: './img/retweet-icon.svg'
+const headerParentProfileEvent = profileMenuHandler({
+  profileMenu,
+  headerArrow
 });
-
-setOptionsItemColorEvent({
-  element: optionsItemLike,
-  newColor: '#EC6060',
-  path: './img/like-icon-full.svg',
-  lastPath: './img/like-icon.svg'
-});
-
-setOptionsItemColorEvent({
-  element: optionsItemSave,
-  newColor: '#5FB4E4',
-  path: './img/save-icon-full.svg',
-  lastPath: './img/save-icon.svg'
-});
-
-const profileMenuHandler = () => {
-  let eventHandler = false
-  
-  return () => {
-    if(eventHandler === false) {
-      eventHandler = true;
-      
-      profileMenu.style.display = 'flex';
-      headerArrow.style.transform = 'rotate(-90deg) translateY(-.5rem)';
-    } else {
-      eventHandler = false;
-      profileMenu.style.display = 'none';
-      headerArrow.style.transform = 'rotate(90deg)';
-    }
-  }
-}
-
-const headerParentProfileEvent = profileMenuHandler();
 
 headerParentProfile.addEventListener('click', headerParentProfileEvent);
 
@@ -124,6 +75,7 @@ tweetSubmitBtn.addEventListener('click', () => {
     
     const tweetSubmitProcess = createProcess(
       [
+        setOptionEventsTweets,
         prependChild,
         createNewTweetElement,
         uploadTweet

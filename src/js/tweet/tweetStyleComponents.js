@@ -18,3 +18,39 @@ export const setOptionsItemColorEvent = ({ element, newColor, path, lastPath, fu
     funcHandler();
   })
 }
+
+export const setOptionEventsTweets = () => {
+  const optionsItemComment = document.querySelectorAll('.post__optionsItem--comment');
+  const optionsItemRetweet = document.querySelectorAll('.post__optionsItem--retweet');
+  const optionsItemLike = document.querySelectorAll('.post__optionsItem--like');
+  const optionsItemSave = document.querySelectorAll('.post__optionsItem--save');
+  
+  optionsItemComment.forEach(element => {
+    element.addEventListener('click', () => {
+      const commentInputActualPost = element.parentNode.parentNode.querySelector('.post__postCommentInput');
+      
+      commentInputActualPost.focus();
+    });
+  });
+  
+  setOptionsItemColorEvent({
+    element: optionsItemRetweet,
+    newColor: '#55BF82',
+    path: './img/retweet-icon-full.svg',
+    lastPath: './img/retweet-icon.svg'
+  });
+  
+  setOptionsItemColorEvent({
+    element: optionsItemLike,
+    newColor: '#EC6060',
+    path: './img/like-icon-full.svg',
+    lastPath: './img/like-icon.svg'
+  });
+  
+  setOptionsItemColorEvent({
+    element: optionsItemSave,
+    newColor: '#5FB4E4',
+    path: './img/save-icon-full.svg',
+    lastPath: './img/save-icon.svg'
+  });
+}

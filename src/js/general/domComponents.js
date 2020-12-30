@@ -27,10 +27,31 @@ export const changeColorWhenClick = (element, defaultColor, newColor, path, last
   }
 }
 
+export const profileMenuHandler = ({ profileMenu, headerArrow }) => {
+  let eventHandler = false
+  
+  return () => {
+    if(eventHandler === false) {
+      eventHandler = true;
+      
+      profileMenu.style.display = 'flex';
+      headerArrow.style.transform = 'rotate(-90deg) translateY(-.5rem)';
+    } else {
+      eventHandler = false;
+      profileMenu.style.display = 'none';
+      headerArrow.style.transform = 'rotate(90deg)';
+    }
+  }
+}
+
 export const prependChild = ({ domElement, parentToPrependClass }) => {
   const parentToPrependElement = document.querySelector(parentToPrependClass);
   
   parentToPrependElement.prepend(domElement);
+  
+  return {
+    domElement
+  }
 };
 
 export const createNewTweetElement = ({ tweet }) => {

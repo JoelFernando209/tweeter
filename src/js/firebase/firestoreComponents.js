@@ -1,4 +1,5 @@
 import { userVerified, getName, getUid, getProfilePhoto } from '../auth/authComponents.js';
+import { formatDateTweet } from '../general/generalFunc.js';
 
 const firestore = firebase.firestore();
 
@@ -12,7 +13,9 @@ export const uploadTweet = ({ tweetVal, catchFunc, catchErrElement }) => {
       tweetValue: tweetVal,
       author: getName(),
       uid: getUid(),
-      date: getServerTimestamp(),
+      date: formatDateTweet({
+        date: new Date()
+      }),
       profilePhoto: getProfilePhoto()
     }
     

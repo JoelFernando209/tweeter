@@ -27,10 +27,10 @@ export const changeColorWhenClick = (element, defaultColor, newColor, path, last
   }
 }
 
-export const prependChild = ({ domElement, parentToAppendClass }) => {
-  const parentToAppendElement = document.querySelector(parentToAppendClass);
+export const prependChild = ({ domElement, parentToPrependClass }) => {
+  const parentToPrependElement = document.querySelector(parentToPrependClass);
   
-  parentToAppendElement.prepend(domElement);
+  parentToPrependElement.prepend(domElement);
 };
 
 export const createNewTweetElement = ({ tweet }) => {
@@ -164,6 +164,6 @@ export const createNewTweetElement = ({ tweet }) => {
   
   return {
     domElement: newPost,
-    parentToAppendClass: '.dashboard__tweetPosts'
+    parentToPrependClass: '.dashboard__tweetPosts'
   };
 };

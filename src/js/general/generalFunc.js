@@ -34,7 +34,17 @@ export const formatName = name => {
   }
 }
 
-export const hideOnClickOutside = element => {
+export const formatDateTweet = ({ date }) => {
+  const day = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);
+  const month = new Intl.DateTimeFormat('en', { month: 'long' }).format(date);
+  const hour = new Intl.DateTimeFormat('en', { hour: '2-digit' }).format(date).split(' ')[0];
+  const minute = new Intl.DateTimeFormat('en', { minute: '2-digit' }).format(date);
+  const year = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);
+  
+  return `${day} ${month} at ${hour}:${minute} ${year}`;
+};
+
+export const hideOnClickOutside = elemesnt => {
   const outsideClickListener = event => {
     if (!element.contains(event.target)) {
       element.style.opacity = '0';

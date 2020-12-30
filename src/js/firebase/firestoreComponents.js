@@ -7,6 +7,13 @@ export const getServerTimestamp = () => firebase.firestore.FieldValue.serverTime
 
 export const addDoc = ({ collectionTarget, docObj }) => firestore.collection(collectionTarget).add(docObj);
 
+export const setDocWithKey = ({ collectionTarget, keyDoc, docContent, configDoc = {} }) => {
+  return firestore.collection(collectionTarget).doc(keyDoc).set(
+    docContent,
+    configDoc
+  )
+};
+
 export const uploadTweet = ({ tweetVal, catchFunc, catchErrElement }) => {
   if(userVerified()) {
     const tweetObj = {

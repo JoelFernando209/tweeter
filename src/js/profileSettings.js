@@ -1,7 +1,11 @@
-import { formatName, hideOnClickOutside, putErrorInForm } from './general/generalFunc.js';
+import { formatName, hideOnClickOutside, putErrorInForm, createProcess } from './general/generalFunc.js';
+import { profileMenuHandler } from './general/domComponents.js';
 import { addPwEye } from './components/pwEye.js';
 import { setInputLimit } from './components/setInputLimit.js';
 import { actualUrl } from './actualUrl.js';
+import { uploadProfileImg, deleteAllFilesFromFolder, createRef, imgGetDownloadURL } from './firebase/storageComponents.js';
+import { getUid, updatePhotoURL } from './auth/authComponents.js';
+import { setDocWithKey } from './firebase/firestoreComponents.js';
 
 const headerParentProfile = document.querySelector('.header__profile');
 
@@ -37,7 +41,6 @@ const changeProfileInputPhone = document.querySelector('.changeProfile__input--p
 const changeProfileDeleteAccountBtn = document.querySelector('.changeProfile__deleteAccount');
 
 const changeProfileForm = document.querySelector('.changeProfile__form');
-const changeProfileErr = document.querySelector('.changeProfile__err');
 
 const windowPopup = document.querySelector('.windowPopup');
 const windowPopupSubmit = document.querySelector('.windowPopup__submit');
@@ -106,25 +109,10 @@ firebase.auth().onAuthStateChanged(user => {
   }
 })
 
-const profileMenuHandler = () => {
-  let eventHandler = false
-  
-  return () => {
-    if(eventHandler === false) {
-      eventHandler = true;
-      
-      profileMenu.style.display = 'flex';
-      headerArrow.style.transform = 'rotate(-90deg) translateY(-.5rem)';
-    } else {
-      eventHandler = false;
-      
-      profileMenu.style.display = 'none';
-      headerArrow.style.transform = 'rotate(90deg)';
-    }
-  }
-}
-
-const headerParentProfileEvent = profileMenuHandler();
+const headerParentProfileEvent = profileMenuHandler({
+  profileMenu,
+  headerArrow
+});
 
 headerParentProfile.addEventListener('click', headerParentProfileEvent);
 
@@ -134,7 +122,6 @@ signOutMenu.addEventListener('click', () => {
   .catch(err => console.log(err.message));
 })
 
-// Change views.
 
 const setDefaultValueToInput = () => {
   const user = firebase.auth().currentUser;
@@ -164,12 +151,13 @@ const setDefaultValueToInput = () => {
     })
 }
 
+// Change views.
+
 infoProfileEdit.addEventListener('click', () => {
   infoProfile.style.display = 'none';
   changeProfile.style.display = 'flex';
   setDefaultValueToInput();
 })
-
 
 changeProfileGoBack.addEventListener('click', () => {
   infoProfile.style.display = 'flex';
@@ -183,85 +171,94 @@ setInputLimit(changeProfileInputName, 50);
 
 // Set events
 
-const uploadProfilePhoto = (file, nameParent, uid, loading, endFunc) => {
-  const photoRef = firebase.storage().ref(`${nameParent}/${uid}`);
-  
-  // Ensure that the folder is empty and remove all the files in it.
-  
-  photoRef
-    .listAll()
-    .then(res => {
-      if(res.items.length > 0) {
-        res.items.forEach(imageRef => {
-          imageRef.delete();
-        })
-      }
-    })
-    .catch(err => {
-      changeProfileErr.innerHTML = err.message;
-    })
-    
-  const photoNameRef = photoRef.child(file.name);
-  const taskImg = photoNameRef.put(file);
-  
-  taskImg.on('state_changed', snapshot => {
-    const downloadPercentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    loading.style.height = downloadPercentage+'%';
-  },
-  err => {
-    changeProfileErr.innerHTML = err.message;
-  },
-  endFunc(taskImg)
-  )
-}
-
 changeProfilePhotoBtn.addEventListener('change', e => {
   const user = firebase.auth().currentUser;
+  const changeProfileErr = document.querySelector('.changeProfile__err');
   
   const fileToUpload = e.target.files[0];
   
-  uploadProfilePhoto(fileToUpload, 'profilePhoto', user.uid, changeProfilePhotoLoading, taskImg => () => {
-    taskImg.snapshot.ref.getDownloadURL()
-      .then(url => {
-        firebase.auth().currentUser.updateProfile({
-          photoURL: url
-        })
-        .catch(err => {
-          changeProfileErr.innerHTML = err.message;
-        })
-        
-        changeProfilePhoto.setAttribute('src', url);
-        headerProfile.setAttribute('src', url)
-        
-        changeProfilePhotoLoading.style.height = '0';
-      })
-      .catch(err => {
-        changeProfileErr.innerHTML = err.message;
-      })
-  });
+  const profilePhotoUploadProcess = createProcess(
+    [
+      uploadProfileImg({
+        loadingElement: changeProfilePhotoLoading,
+        endFunc: taskImg => () => {
+          imgGetDownloadURL({ task: taskImg })
+            .then(url => {
+              updatePhotoURL({ photoURL: url })
+              .catch(err => {
+                changeProfileErr.innerHTML = err.message;
+              })
+              
+              changeProfilePhoto.setAttribute('src', url);
+              headerProfile.setAttribute('src', url)
+              
+              changeProfilePhotoLoading.style.height = '0';
+            })
+            .catch(err => {
+              changeProfileErr.innerHTML = err.message;
+            })
+        }
+      }),
+      deleteAllFilesFromFolder,
+      createRef
+    ],
+    {
+      pathRef: `profilePhoto/${getUid()}`,
+      errElement: changeProfileErr,
+      fileToUpload
+    }
+  )
+  
+  profilePhotoUploadProcess();
 })
 
 changeProfileBannerBtn.addEventListener('change', e => {
   const user = firebase.auth().currentUser;
+  const changeProfileErr = document.querySelector('.changeProfile__err');
   
   const fileToUpload = e.target.files[0];
   
-  uploadProfilePhoto(fileToUpload, 'profileBanner', user.uid, changeProfileBannerLoading, taskImg => () => {
-    taskImg.snapshot.ref.getDownloadURL()
-      .then(url => {
-        firebase.firestore().collection('userData').doc(user.uid).set({
-          bannerUrl: url
-        },
-        { merge: true })
-        
-        changeProfileBanner.setAttribute('src', url);
-        
-        changeProfileBannerLoading.style.height = '0';
-      })
-      .catch(err => {
-        changeProfileErr.innerHTML = err.message;
-      })
-  })
+  const profileBannerUploadProcess = createProcess(
+    [
+      uploadProfileImg({
+        loadingElement: changeProfileBannerLoading,
+        endFunc: taskImg => () => {
+          imgGetDownloadURL({ task: taskImg })
+            .then(url => {
+              setDocWithKey({
+                collectionTarget: 'userData',
+                keyDoc: getUid(),
+                docContent: {
+                  bannerUrl: url
+                },
+                configDoc: {
+                  merge: true
+                }
+              })
+              .catch(err => {
+                changeProfileErr.innerHTML = err.message;
+              })
+              
+              changeProfileBanner.setAttribute('src', url);
+              
+              changeProfileBannerLoading.style.height = '0';
+            })
+            .catch(err => {
+              changeProfileErr.innerHTML = err.message;
+            })
+        }
+      }),
+      deleteAllFilesFromFolder,
+      createRef
+    ],
+    {
+      pathRef: `profileBanner/${getUid()}`,
+      errElement: changeProfileErr,
+      fileToUpload
+    }
+  );
+  
+  profileBannerUploadProcess();
 })
 
 changeProfileForm.addEventListener('submit', e => {

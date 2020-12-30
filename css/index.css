@@ -13,6 +13,9 @@
 .ds-block {
   display: block; }
 
+.ds-none {
+  display: none; }
+
 .txt-center {
   text-align: center; }
 
@@ -76,6 +79,17 @@
     transform: translate3d(-50%, -50%, 0) rotate(0deg); }
   100% {
     transform: translate3d(-50%, -50%, 0) rotate(360deg); } }
+
+@keyframes postEntrance {
+  0% {
+    transform: translateX(-6rem);
+    opacity: 0; }
+  50% {
+    transform: translateX(-3rem);
+    opacity: .4; }
+  100% {
+    transform: translateX(0);
+    opacity: 1; } }
 
 *,
 *::before,
@@ -890,7 +904,8 @@ body {
   border-radius: 2rem;
   margin-bottom: 2rem;
   padding: 1.5rem;
-  margin-bottom: 2rem; }
+  margin-bottom: 2rem;
+  animation: postEntrance .6s ease-in; }
   .post__profile {
     display: inline-flex;
     margin-bottom: 1rem; }

@@ -9,6 +9,8 @@ const headerProfile = document.querySelector('.header__img-profile');
 const headerParentProfile = document.querySelector('.header__profile');
 const headerArrow = document.querySelector('.header__arrow');
 
+const addImgInput = document.querySelector('.tweet__addImgInput');
+
 const signOutMenu = document.querySelector('.menu__item--sign-out');
 
 const profileMenu = document.querySelector('.profile__menu');
@@ -50,8 +52,6 @@ firebase.auth().onAuthStateChanged(user => {
     }
   }
 })
-
-setOptionEventsTweets();
 
 const headerParentProfileEvent = profileMenuHandler({
   profileMenu,
@@ -102,4 +102,17 @@ tweetSubmitBtn.addEventListener('click', () => {
     tweetErr.innerHTML = '*Please put a valid description.';
   }
   
+})
+
+addImgInput.addEventListener('change', event => {
+  const tweetErr = document.querySelector('.tweet__err')
+  const arrayFiles = event.target.files;
+  
+  if(arrayFiles.length > 3) {
+    tweetErr.innerHTML = '*You can only put a maximum of three files';
+  } else {
+    tweetErr.innerHTML = '';
+    
+    
+  }
 })

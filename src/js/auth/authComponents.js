@@ -1,5 +1,9 @@
 const auth = firebase.auth();
 
+export const updatePhotoURL = ({ photoURL }) => auth.currentUser.updateProfile({
+  photoURL
+})
+
 export const userVerified = () => {
   const user = auth.currentUser;
   

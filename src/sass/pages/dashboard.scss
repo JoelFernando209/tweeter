@@ -26,7 +26,7 @@
     grid-gap: 2rem;
     width: 75%;
     grid-template-columns: 70% 30%;
-    grid-template-rows: repeat(4, [row-start] 18rem [row-end]);
+    grid-template-rows: [first-row-start] minmax(40rem, min-content) [first-row-end] repeat(3, [row-start] 18rem [row-end]);
     
     @include respond(laptop) {
       grid-template-rows: repeat(6, [row-start] 18rem [row-end]);
@@ -53,7 +53,7 @@
   
   &__trends {
     grid-column: 2 / 3;
-    grid-row: row-start 1 / row-end 2;
+    grid-row: first-row-start / first-row-end;
     
     @include respond(laptop) {
       grid-column: 2 / 3;
@@ -68,7 +68,7 @@
   
   &__follow {
     grid-column: 2 / 3;
-    grid-row: row-start 3 / row-end 4;
+    grid-row: row-start 1 / row-end 2;
   
     @include respond(laptop) {
       grid-column: 1 / 2;

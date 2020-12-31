@@ -27,6 +27,27 @@ export const changeColorWhenClick = (element, defaultColor, newColor, path, last
   }
 }
 
+export const createImg = ({ url, parentClass, errElement }) => {
+  const parentElement = document.querySelector(`.${parentClass}`);
+
+  const imgItem = document.createElement('img');
+  
+  url
+    .then(urlTarget => {
+      imgItem.className = 'tweet__imagesItem';
+      imgItem.setAttribute('src', urlTarget);
+      
+      parentElement.appendChild(imgItem);
+    })
+    .catch(err => {
+      errElement.innerHTML = err.message;
+    })
+  
+  return {
+    imgItem
+  }
+}
+
 export const profileMenuHandler = ({ profileMenu, headerArrow }) => {
   let eventHandler = false
   

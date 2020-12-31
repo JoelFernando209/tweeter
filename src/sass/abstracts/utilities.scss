@@ -1,5 +1,5 @@
 .ds-block { display: block; }
-.ds-none { display: none; }
+.ds-none { display: none !important; }
 
 .txt-center { text-align: center; }
 
@@ -30,3 +30,14 @@
 .flex-align-start { align-self: flex-start; }
 
 .color--red { color: red; }
+
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: .3rem;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: .3rem;
+}

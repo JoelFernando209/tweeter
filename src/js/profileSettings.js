@@ -9,7 +9,6 @@ import { setDocWithKey } from './firebase/firestoreComponents.js';
 
 const headerParentProfile = document.querySelector('.header__profile');
 
-const infoProfile = document.querySelector('.infoProfile');
 const changeProfile = document.querySelector('.changeProfile');
 
 const profileMenu = document.querySelector('.profile__menu')
@@ -18,22 +17,11 @@ const headerProfile = document.querySelector('.header__img-profile');
 const headerName = document.querySelector('.header__name');
 const headerArrow = document.querySelector('.header__arrow');
 
-const infoProfileEdit = document.querySelector('.infoProfile__edit');
-const infoProfilePhoto = document.querySelector('.infoProfile__photo');
-const infoProfileName = document.querySelector('.infoProfile__value--name');
-const infoProfileEmail = document.querySelector('.infoProfile__value--email');
-const infoProfileBio = document.querySelector('.infoProfile__value--bio');
-const infoProfilePhone = document.querySelector('.infoProfile__value--phone');
-
-const changeProfileGoBack = document.querySelector('.changeProfile__go-back');
-
 const changeProfilePhoto = document.querySelector('.changeProfile__photo-img');
 const changeProfilePhotoBtn = document.querySelector('.changeProfile__photo-btn');
-const changeProfilePhotoLoading = document.querySelector('.changeProfile__photo-loading');
 
 const changeProfileBanner = document.querySelector('.changeProfile__banner-img');
 const changeProfileBannerBtn = document.querySelector('.changeProfile__banner-btn');
-const changeProfileBannerLoading = document.querySelector('.changeProfile__banner-loading');
 
 const changeProfileInputName = document.querySelector('.changeProfile__input--name');
 const changeProfileTextArea = document.querySelector('.changeProfile__textarea');
@@ -53,9 +41,14 @@ let didDeleteAccount = false;
 
 firebase.auth().onAuthStateChanged(user => {
   if(user && user.emailVerified) {
+    const infoProfileName = document.querySelector('.infoProfile__value--name');
+    const infoProfileEmail = document.querySelector('.infoProfile__value--email');
+    
     headerName.innerHTML = formatName(user.displayName);
 
     if(user.photoURL) {
+      const infoProfilePhoto = document.querySelector('.infoProfile__photo');
+      
       headerProfile.setAttribute('src', user.photoURL);
       infoProfilePhoto.setAttribute('src', user.photoURL);
     } else {
@@ -67,15 +60,22 @@ firebase.auth().onAuthStateChanged(user => {
     infoProfileName.innerHTML = user.displayName;
     infoProfileEmail.innerHTML = user.email;
     
-    firebase.firestore().collection('userData').doc(user.uid).get().then(doc => {
-      if(doc.exists) {
-        infoProfileBio.innerHTML = doc.data().bio;
-        infoProfilePhone.innerHTML = doc.data().phone;
-      } else {
-        infoProfileBio.innerHTML = 'Not defined';
-        infoProfilePhone.innerHTML = 'Not defined';
-      }
-    })
+    firebase.firestore()
+      .collection('userData')
+      .doc(user.uid)
+      .get()
+      .then(doc => {
+        const infoProfileBio = document.querySelector('.infoProfile__value--bio');
+        const infoProfilePhone = document.querySelector('.infoProfile__value--phone');
+        
+        if(doc.exists) {
+          infoProfileBio.innerHTML = doc.data().bio;
+          infoProfilePhone.innerHTML = doc.data().phone;
+        } else {
+          infoProfileBio.innerHTML = 'Not defined';
+          infoProfilePhone.innerHTML = 'Not defined';
+        }
+      })
     
   } else {
     if(wasSignedIn === true) {
@@ -153,11 +153,16 @@ const setDefaultValueToInput = () => {
 
 // Change views.
 
+const infoProfileEdit = document.querySelector('.infoProfile__edit');
+const infoProfile = document.querySelector('.infoProfile');s
+
 infoProfileEdit.addEventListener('click', () => {
   infoProfile.style.display = 'none';
   changeProfile.style.display = 'flex';
   setDefaultValueToInput();
 })
+
+const changeProfileGoBack = document.querySelector('.changeProfile__go-back');
 
 changeProfileGoBack.addEventListener('click', () => {
   infoProfile.style.display = 'flex';
@@ -174,6 +179,7 @@ setInputLimit(changeProfileInputName, 50);
 changeProfilePhotoBtn.addEventListener('change', e => {
   const user = firebase.auth().currentUser;
   const changeProfileErr = document.querySelector('.changeProfile__err');
+  const changeProfilePhotoLoading = document.querySelector('.changeProfile__photo-loading');
   
   const fileToUpload = e.target.files[0];
   
@@ -215,6 +221,7 @@ changeProfilePhotoBtn.addEventListener('change', e => {
 changeProfileBannerBtn.addEventListener('change', e => {
   const user = firebase.auth().currentUser;
   const changeProfileErr = document.querySelector('.changeProfile__err');
+  const changeProfileBannerLoading = document.querySelector('.changeProfile__banner-loading');
   
   const fileToUpload = e.target.files[0];
   

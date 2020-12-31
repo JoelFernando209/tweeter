@@ -46,14 +46,8 @@ export const putErrorInForm = errorVal => {
 const addPwEyeSignIn = addPwEye(authPw, inputEye);
 addPwEyeSignIn();
 
-googleAuth.addEventListener('click', () => {
-  createAccountGoogle();
-})
+googleAuth.addEventListener('click', createAccountGoogle);
 
-facebookAuth.addEventListener('click', () => {
-  createAccountFacebook();
-})
+facebookAuth.addEventListener('click', createAccountFacebook);
 
-githubAuth.addEventListener('click', () => {
-  createAccountGithub();
-})
+githubAuth.addEventListener('click', createAccountGithub);

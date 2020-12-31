@@ -2,10 +2,10 @@ import { createProcess, setLoadingPage, removeLoadingPage, formatName } from './
 import { actualUrl } from './actualUrl.js';
 import { uploadTweet } from './firebase/firestoreComponents.js';
 import { setOptionsItemColorEvent, setOptionEventsTweets } from './tweet/tweetStyleComponents.js';
-import { createNewTweetElement, prependChild, profileMenuHandler } from './general/domComponents.js';
+import { createNewTweetElement, prependChild, profileMenuHandler, createImg } from './general/domComponents.js';
+import { uploadNormalImg, createRef } from './firebase/storageComponents.js';
+import { getUid } from './auth/authComponents.js';
 
-const headerName = document.querySelector('.header__name');
-const headerProfile = document.querySelector('.header__img-profile');
 const headerParentProfile = document.querySelector('.header__profile');
 const headerArrow = document.querySelector('.header__arrow');
 
@@ -23,6 +23,9 @@ let wasSignedIn = false; // To show other message when signed out and dont to re
 
 firebase.auth().onAuthStateChanged(user => {
   if(user && user.emailVerified) {
+    const headerName = document.querySelector('.header__name');
+    const headerProfile = document.querySelector('.header__img-profile');
+    
     headerName.innerHTML = formatName(user.displayName);
     
     if(user.photoURL) {
@@ -106,13 +109,47 @@ tweetSubmitBtn.addEventListener('click', () => {
 
 addImgInput.addEventListener('change', event => {
   const tweetErr = document.querySelector('.tweet__err')
-  const arrayFiles = event.target.files;
+  const arrayFiles = Object.values(event.target.files);
   
   if(arrayFiles.length > 3) {
     tweetErr.innerHTML = '*You can only put a maximum of three files';
   } else {
+    const tweetImages = document.querySelector('.tweet__images');
+    
     tweetErr.innerHTML = '';
     
+    tweetImages.classList.remove('ds-none');
     
+    switch (arrayFiles.length) {
+      case 3:
+        tweetImages.classList.add('grid-3');
+      break;
+      case 2:
+        tweetImages.classList.add('grid-2');
+      break;
+      default:
+        tweetImages.classList.add('');
+    }
+    
+    const photoUploadProcess = ({ file }) => createProcess(
+      [
+        uploadNormalImg({
+          endFunc: createImg,
+          parentClass: 'tweet__images'
+        }),
+        createRef
+      ],
+      {
+        pathRef: `tweets/${getUid()}`,
+        errElement: tweetErr,
+        fileToUpload: file
+      }
+    );
+    
+    arrayFiles.forEach(file => {
+      const taskPhoto = photoUploadProcess({ file });
+      
+      taskPhoto();
+    })
   }
 })

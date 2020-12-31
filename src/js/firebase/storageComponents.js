@@ -8,7 +8,7 @@ export const createRef = ({ pathRef, errElement, fileToUpload }) => ({
 
 export const createTask = ({ ref, file }) => ref.put(file);
 
-export const imgGetDownloadURL = ({ task }) => task.snapshot.ref.getDownloadURL();
+export const imgGetDownloadURL = ({ task }) => task.ref.getDownloadURL();
 
 export const getDownloadPercentage = ({ snapshot }) => (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
@@ -31,6 +31,21 @@ export const deleteAllFilesFromFolder = ({ ref, errElement, fileToUpload }) => {
     errElement,
     fileToUpload
   }
+};
+
+export const uploadNormalImg = ({ endFunc, parentClass }) => ({ ref, errElement, fileToUpload }) => {
+  const childRef = ref.child(fileToUpload.name);
+  
+  const taskImg = createTask({
+    ref: childRef,
+    file: fileToUpload
+  })
+  .then(snapshot => {
+    endFunc({ url: imgGetDownloadURL({ task: snapshot }), parentClass, errElement })
+  })
+  .catch(err => {
+    errElement.innerHTML = err.message;
+  })
 };
 
 export const uploadProfileImg = ({ loadingElement, endFunc }) => ({ ref, errElement, fileToUpload }) => {

@@ -144,7 +144,7 @@ addImgInput.addEventListener('change', event => {
       [
         uploadNormalImg({
           endFunc: ({ url, parentClass, errElement }) => {
-            createImg({ url, parentClass, errElement });
+            createImg({ url, parentClass, errElement, elementClass: 'tweet__imagesItemBox' });
             setPhotoTweet({ url, errElement });
           },
           parentClass: 'tweet__images'

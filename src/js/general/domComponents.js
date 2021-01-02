@@ -27,11 +27,11 @@ export const changeColorWhenClick = (element, defaultColor, newColor, path, last
   }
 }
 
-export const createImg = ({ url, parentClass, errElement }) => {
+export const createImg = ({ url, parentClass, errElement, elementClass }) => {
   const parentElement = document.querySelector(`.${parentClass}`);
 
   const imgItemBox = document.createElement('div');
-  imgItemBox.className = 'tweet__imagesItemBox';
+  imgItemBox.className = elementClass;
   
   imgItemBox.innerHTML = `
     <div class='tweet__imagesItemLoading'></div>
@@ -97,6 +97,18 @@ export const createNewTweetElement = ({ tweet }) => {
   
   const newPost = document.createElement('div');
   newPost.className = 'post';
+  let gridClass;
+  
+  switch (tweet.photoTweets.length) {
+    case 3:
+      gridClass = 'grid-3'
+    break;
+    case 2:
+      gridClass = 'grid-2'
+    break;
+    default:
+      gridClass = 'grid-1';
+  }
   
   newPost.innerHTML = `
     <div class='post__profile'>
@@ -112,8 +124,12 @@ export const createNewTweetElement = ({ tweet }) => {
       ${tweet.tweetValue}
     </div>
     
-    <div class='post__tweetImg-box'>
-      <img src='./img/default-banner.jpg' class='post__tweetImg' />
+    <div class='post__tweetImg-box ${gridClass}'>
+      ${
+        tweet.photoTweets.map(urlTweet => {
+          return `<img src='${urlTweet}' class='post__tweetImg' />`
+        }).join('')
+      }
     </div>
     
     <div class='post__data'>

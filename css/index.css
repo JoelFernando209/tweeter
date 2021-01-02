@@ -976,14 +976,19 @@ body {
     font-size: 1.4rem;
     margin-bottom: 1rem; }
   .post__tweetImg-box {
-    width: 100%; }
+    width: 100%;
+    display: grid;
+    height: 28rem; }
   .post__tweetImg {
     width: 100%;
+    height: 100%;
     object-fit: cover;
     border-radius: 1rem;
     cursor: pointer; }
     .post__tweetImg:hover {
       filter: brightness(90%); }
+  .post .grid-3 .post__tweetImg:first-child {
+    grid-row: 1 / -1; }
   .post__data {
     display: flex;
     justify-content: flex-end;

@@ -30,23 +30,41 @@ export const changeColorWhenClick = (element, defaultColor, newColor, path, last
 export const createImg = ({ url, parentClass, errElement }) => {
   const parentElement = document.querySelector(`.${parentClass}`);
 
-  const imgItem = document.createElement('img');
+  const imgItemBox = document.createElement('div');
+  imgItemBox.className = 'tweet__imagesItemBox';
+  
+  imgItemBox.innerHTML = `
+    <div class='tweet__imagesItemLoading'></div>
+  `;
+  
+  parentElement.appendChild(imgItemBox);
   
   url
     .then(urlTarget => {
-      imgItem.className = 'tweet__imagesItem';
-      imgItem.setAttribute('src', urlTarget);
-      
-      parentElement.appendChild(imgItem);
+      imgItemBox.innerHTML = `
+        <img class="tweet__imagesItem" src="${urlTarget}">
+        
+        <div class='tweet__imagesItemLoading ds-none'></div>
+      `;
     })
     .catch(err => {
       errElement.innerHTML = err.message;
     })
   
   return {
-    imgItem
+    imgItemBox
   }
 }
+
+export const removeAllChildNodes = ({ element }) => {
+  while (element.lastChild) {
+    element.removeChild(element.lastChild);
+  }
+  
+  return {
+    element
+  }
+};
 
 export const profileMenuHandler = ({ profileMenu, headerArrow }) => {
   let eventHandler = false

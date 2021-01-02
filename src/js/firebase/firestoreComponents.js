@@ -2,6 +2,7 @@ import { userVerified, getName, getUid, getProfilePhoto } from '../auth/authComp
 import { formatDateTweet } from '../general/generalFunc.js';
 
 const firestore = firebase.firestore();
+let photoTweets = [];
 
 export const getServerTimestamp = () => firebase.firestore.FieldValue.serverTimestamp();
 
@@ -23,7 +24,8 @@ export const uploadTweet = ({ tweetVal, catchFunc, catchErrElement }) => {
       date: formatDateTweet({
         date: new Date()
       }),
-      profilePhoto: getProfilePhoto()
+      profilePhoto: getProfilePhoto(),
+      photoTweets: photoTweets
     }
     
     addDoc({
@@ -31,6 +33,7 @@ export const uploadTweet = ({ tweetVal, catchFunc, catchErrElement }) => {
       docObj: tweetObj
     })
     .then(() => {
+      photoTweets = [];
       catchErrElement.innerHTML = '';
     })
     .catch(err => {
@@ -46,3 +49,22 @@ export const uploadTweet = ({ tweetVal, catchFunc, catchErrElement }) => {
     return;
   }
 };
+
+export const setPhotoTweet = ({ url, errElement }) => {
+  url
+    .then(urlTarget => {
+      photoTweets.push(urlTarget);
+      
+      return photoTweets;
+    })
+    .catch(err => {
+      errElement.innerHTML = err.message;
+      console.log(err.message);
+    })
+}
+
+export const resetPhotoTweet = () => {
+  photoTweets = [];
+  
+  return photoTweets;
+}

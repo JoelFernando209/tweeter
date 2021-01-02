@@ -46,6 +46,8 @@ export const uploadNormalImg = ({ endFunc, parentClass }) => ({ ref, errElement,
   .catch(err => {
     errElement.innerHTML = err.message;
   })
+  
+  
 };
 
 export const uploadProfileImg = ({ loadingElement, endFunc }) => ({ ref, errElement, fileToUpload }) => {

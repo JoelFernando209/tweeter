@@ -1,8 +1,8 @@
 import { createProcess, setLoadingPage, removeLoadingPage, formatName } from './general/generalFunc.js';
 import { actualUrl } from './actualUrl.js';
-import { uploadTweet } from './firebase/firestoreComponents.js';
+import { uploadTweet, setPhotoTweet, resetPhotoTweet } from './firebase/firestoreComponents.js';
 import { setOptionsItemColorEvent, setOptionEventsTweets } from './tweet/tweetStyleComponents.js';
-import { createNewTweetElement, prependChild, profileMenuHandler, createImg } from './general/domComponents.js';
+import { createNewTweetElement, prependChild, profileMenuHandler, createImg, removeAllChildNodes } from './general/domComponents.js';
 import { uploadNormalImg, createRef } from './firebase/storageComponents.js';
 import { getUid } from './auth/authComponents.js';
 
@@ -101,6 +101,11 @@ tweetSubmitBtn.addEventListener('click', () => {
     
     tweetSubmitProcess();
     
+    document.querySelector('.tweet__images').classList.add('ds-none');
+    removeAllChildNodes({ element: document.querySelector('.tweet__images') });
+    
+    tweetTextArea.value = '';
+    
   } else {
     tweetErr.innerHTML = '*Please put a valid description.';
   }
@@ -109,11 +114,15 @@ tweetSubmitBtn.addEventListener('click', () => {
 
 addImgInput.addEventListener('change', event => {
   const tweetErr = document.querySelector('.tweet__err')
-  const arrayFiles = Object.values(event.target.files);
+  let arrayFiles = Object.values(event.target.files);
+  
+  resetPhotoTweet();
   
   if(arrayFiles.length > 3) {
     tweetErr.innerHTML = '*You can only put a maximum of three files';
-  } else {
+  } else if(arrayFiles.length >= 1) {
+    removeAllChildNodes({ element: document.querySelector('.tweet__images') });
+    
     const tweetImages = document.querySelector('.tweet__images');
     
     tweetErr.innerHTML = '';
@@ -128,13 +137,16 @@ addImgInput.addEventListener('change', event => {
         tweetImages.classList.add('grid-2');
       break;
       default:
-        tweetImages.classList.add('');
+        tweetImages.classList.add('grid-1');
     }
     
     const photoUploadProcess = ({ file }) => createProcess(
       [
         uploadNormalImg({
-          endFunc: createImg,
+          endFunc: ({ url, parentClass, errElement }) => {
+            createImg({ url, parentClass, errElement });
+            setPhotoTweet({ url, errElement });
+          },
           parentClass: 'tweet__images'
         }),
         createRef
@@ -150,6 +162,8 @@ addImgInput.addEventListener('change', event => {
       const taskPhoto = photoUploadProcess({ file });
       
       taskPhoto();
-    })
+    });
+    
+    addImgInput.input = '';
   }
 })

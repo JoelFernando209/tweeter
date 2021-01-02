@@ -11,6 +11,22 @@
   transform: translateY(-50%);
 }
 
+@mixin loadingBefore ($measure) {
+  animation: 2s linear infinite loadingSpinner;
+  border: solid 10px #eee;
+  border-bottom-color: $color-primary;
+  border-radius: 50%;
+  content: "";
+  height: $measure;
+  width: $measure;
+  left: 50%;
+  opacity: inherit;
+  position: absolute;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  transform-origin: center;
+  will-change: transform;
+}
 
 /*
   RESPONSIVE:

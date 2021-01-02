@@ -56,50 +56,55 @@
       <main class='dashboard__main'>
         <div class='dashboard__gridMain'>
           
-          <div class='dashboard__tweet tweet'>
-            <div class='important-text tweet__title'>
-              Tweet something
-              
-              <span class='tweet__err color--red'></span>
-            </div>
-            
-            <div class='tweet__dataTweet'>
-              <img src='./img/default-profile.jpg' alt='Profile' class='tweet__profileImg' />
-              
-              <textarea class='tweet__textarea' placeholder="What's happening?"></textarea>
-              
-            </div>
-            
-            <div class='tweet__images ds-none'></div>
-            
-            <div class='tweet__buttons'>
-              <label class='tweet__addImgBox' for='tweet__addImgInput'>
-                <div class='tweet__addImg' title='Add images to your Tweet'></div>
+          <div class='dashboard__box dashboard__box--tweet'>
+            <div class='dashboard__tweet tweet'>
+              <div class='important-text tweet__title'>
+                Tweet something
                 
-                <input
-                  type='file'
-                  accept='image/png, image/jpeg, image/jpg'
-                  class='tweet__addImgInput ds-none'
-                  multiple
-                  name="files[]"
-                  id='tweet__addImgInput'
-                />
-              </label>
-              
-              <div class='tweet__replyConfig'>
-                <div class='tweet__world'></div>
-                
-                <span class='tweet__replyStatus'>
-                  Everyone can reply
-                </span>
+                <span class='tweet__err color--red'></span>
               </div>
               
-              <button class='btn btn--blue w-25 tweet__submit'>Tweet</button>
+              <div class='tweet__dataTweet'>
+                <img src='./img/default-profile.jpg' alt='Profile' class='tweet__profileImg' />
+                
+                <textarea class='tweet__textarea' placeholder="What's happening?"></textarea>
+                
+              </div>
+              
+              <div class='tweet__images ds-none'></div>
+              
+              <div class='tweet__buttons'>
+                <label class='tweet__addImgBox' for='tweet__addImgInput'>
+                  <div class='tweet__addImg' title='Add images to your Tweet'></div>
+                  
+                  <input
+                    type='file'
+                    accept='image/png, image/jpeg, image/jpg'
+                    class='tweet__addImgInput ds-none'
+                    multiple
+                    name="files[]"
+                    id='tweet__addImgInput'
+                  />
+                </label>
+                
+                <div class='tweet__replyConfig'>
+                  <div class='tweet__world'></div>
+                  
+                  <span class='tweet__replyStatus'>
+                    Everyone can reply
+                  </span>
+                </div>
+                
+                <button class='btn btn--blue w-25 tweet__submit'>Tweet</button>
+              </div>
+              
             </div>
             
+            <div class='dashboard__tweetPosts'></div>
           </div>
           
-          <div class='dashboard__trends trends'>
+          <div class='dashboard__box dashboard__box--info'>
+            <div class='dashboard__trends trends'>
             <div class='important-text trends__title'>Trends for you</div>
             
             <ul class='trends__list'>
@@ -173,17 +178,17 @@
                   <img src='img/add-follower.svg' alt='Add Follower' class='follow__btnFollowIcon'/>
                   Follow
                 </button>
+                </div>
+                
+                <div class='follow__bio'>
+                  This is an epic bio follow me xdxdxdxdxddThis is an epic bio follow me xdxdxdxdxddThis is an epic bio follow me xdxdxdxdxddThis is an epic bio follow me xdxdxdxdxdd
+                </div>
+                
+                <img src='./img/default-banner.jpg' alt='Banner Image' class='follow__bannerImg' />
               </div>
-              
-              <div class='follow__bio'>
-                This is an epic bio follow me xdxdxdxdxddThis is an epic bio follow me xdxdxdxdxddThis is an epic bio follow me xdxdxdxdxddThis is an epic bio follow me xdxdxdxdxdd
-              </div>
-              
-              <img src='./img/default-banner.jpg' alt='Banner Image' class='follow__bannerImg' />
             </div>
           </div>
           
-          <div class='dashboard__tweetPosts'></div>
         </div>
       </main>
     </div>

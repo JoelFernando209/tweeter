@@ -188,58 +188,65 @@ body {
     justify-content: center; }
   .dashboard__gridMain {
     margin: 2rem 0;
-    display: grid;
-    grid-gap: 2rem;
-    width: 75%;
-    grid-template-columns: 70% 30%;
-    grid-template-rows: [first-row-start] minmax(40rem, min-content) [first-row-end] repeat(3, [row-start] 18rem [row-end]); }
+    display: flex;
+    width: 75%; }
     @media only screen and (max-width: 62.5em) {
       .dashboard__gridMain {
-        grid-template-rows: repeat(6, [row-start] 18rem [row-end]);
-        width: 80%; } }
-    @media only screen and (max-width: 31.25em) {
-      .dashboard__gridMain {
-        grid-template-rows: repeat(8, [row-start] 18rem [row-end]); } }
+        width: 80%;
+        flex-direction: column-reverse; } }
     @media only screen and (max-width: 21.875em) {
       .dashboard__gridMain {
         width: 100%; } }
-  .dashboard__tweet {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2; }
-    @media only screen and (max-width: 62.5em) {
-      .dashboard__tweet {
-        grid-column: 1 / -1; } }
+  .dashboard__box {
+    display: flex;
+    flex-direction: column; }
+    .dashboard__box:not(:last-child) {
+      margin-right: 2rem; }
+    .dashboard__box--tweet {
+      width: 65%; }
+      @media only screen and (max-width: 62.5em) {
+        .dashboard__box--tweet {
+          width: 100%;
+          margin-top: 2rem; } }
+    .dashboard__box--info {
+      width: 30%; }
+      @media only screen and (max-width: 62.5em) {
+        .dashboard__box--info {
+          width: 100%;
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: space-between; } }
+      @media only screen and (max-width: 31.25em) {
+        .dashboard__box--info {
+          flex-direction: column; } }
+  @media only screen and (max-width: 62.5em) {
+    .dashboard__tweet {
+      grid-column: 1 / -1; } }
   .dashboard__trends {
-    grid-column: 2 / 3;
-    grid-row: first-row-start / first-row-end; }
+    grid-column: 2 / 3; }
     @media only screen and (max-width: 62.5em) {
       .dashboard__trends {
-        grid-column: 2 / 3;
-        grid-row: row-start 2 / row-end 4; } }
+        width: 40%;
+        height: 100% !important; } }
     @media only screen and (max-width: 31.25em) {
       .dashboard__trends {
-        grid-column: 1 / -1;
-        grid-row: row-start 5 / row-end 6; } }
+        width: 100%; } }
   .dashboard__follow {
-    grid-column: 2 / 3;
-    grid-row: row-start 1 / row-end 2; }
+    grid-column: 2 / 3; }
     @media only screen and (max-width: 62.5em) {
       .dashboard__follow {
-        grid-column: 1 / 2;
-        grid-row: row-start 2 / row-end 4; } }
+        width: 60%;
+        margin-top: 0 !important;
+        margin-right: 2rem; } }
     @media only screen and (max-width: 31.25em) {
       .dashboard__follow {
-        grid-column: 1 / -1; } }
+        width: 100%;
+        height: 50rem !important; } }
   .dashboard__tweetPosts {
-    grid-column: 1 / 2;
-    grid-row: row-start 2 / row-end 3; }
-    @media only screen and (max-width: 62.5em) {
-      .dashboard__tweetPosts {
-        grid-row: row-start 5 / row-end 6; } }
+    grid-column: 1 / 2; }
     @media only screen and (max-width: 31.25em) {
       .dashboard__tweetPosts {
-        grid-column: 1 / -1;
-        grid-row: row-start 7 / row-end 8; } }
+        grid-column: 1 / -1; } }
 
 .profileSettings {
   height: 100vh;
@@ -776,10 +783,10 @@ body {
 
 .tweet {
   width: 100%;
-  height: 20rem;
   background-color: white;
   border-radius: 2rem;
-  padding: 1.5rem; }
+  padding: 1.5rem;
+  margin-bottom: 2rem; }
   .tweet__title {
     font-size: 1.3rem;
     font-weight: 600;
@@ -892,7 +899,8 @@ body {
 .trends {
   background-color: white;
   border-radius: 2rem;
-  padding: 1.5rem; }
+  padding: 1.5rem;
+  height: 35rem; }
   .trends__title {
     font-size: 1.3rem;
     font-weight: 600;
@@ -927,8 +935,9 @@ body {
   border-radius: 2rem;
   margin-bottom: 2rem;
   padding: 1.5rem;
-  margin-bottom: 2rem;
   animation: postEntrance .6s ease-in; }
+  .post:not(:last-child) {
+    margin-bottom: 2rem; }
   .post__profile {
     display: inline-flex;
     margin-bottom: 1rem; }
@@ -1099,6 +1108,8 @@ body {
   background-color: white;
   border-radius: 2rem;
   padding: 1.5rem;
+  height: 40rem;
+  margin-top: 2rem;
   overflow-y: auto; }
   .follow__title {
     font-size: 1.3rem;

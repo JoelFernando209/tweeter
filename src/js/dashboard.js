@@ -115,15 +115,16 @@ tweetSubmitBtn.addEventListener('click', () => {
 addImgInput.addEventListener('change', event => {
   const tweetErr = document.querySelector('.tweet__err')
   let arrayFiles = Object.values(event.target.files);
+  const tweetImages = document.querySelector('.tweet__images');
   
   resetPhotoTweet();
+  tweetImages.className = 'tweet__images ds-none';
   
   if(arrayFiles.length > 3) {
     tweetErr.innerHTML = '*You can only put a maximum of three files';
   } else if(arrayFiles.length >= 1) {
     removeAllChildNodes({ element: document.querySelector('.tweet__images') });
     
-    const tweetImages = document.querySelector('.tweet__images');
     
     tweetErr.innerHTML = '';
     

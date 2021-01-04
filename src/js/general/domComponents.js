@@ -1,3 +1,5 @@
+import { createNewGalleryElement } from '../tweet/galleryTweet.js';
+
 export const iterateQuerySelectorAll = (query, func, params) => {
   query.forEach(element => {
     func(element, ...params)
@@ -56,6 +58,18 @@ export const createImg = ({ url, parentClass, errElement, elementClass }) => {
   }
 }
 
+export const putGridClass = ({ arrCompare }) => {
+  switch (arrCompare.length) {
+    case 3:
+      return 'grid-3';
+    break;
+    case 2:
+      return 'grid-2';
+    default:
+      return 'grid-1';
+  }
+}
+
 export const removeAllChildNodes = ({ element }) => {
   while (element.lastChild) {
     element.removeChild(element.lastChild);
@@ -70,7 +84,7 @@ export const profileMenuHandler = ({ profileMenu, headerArrow }) => {
   let eventHandler = false
   
   return () => {
-    if(eventHandler === false) {
+    if(!eventHandler) {
       eventHandler = true;
       
       profileMenu.style.display = 'flex';
@@ -97,18 +111,8 @@ export const createNewTweetElement = ({ tweet }) => {
   
   const newPost = document.createElement('div');
   newPost.className = 'post';
-  let gridClass;
   
-  switch (tweet.photoTweets.length) {
-    case 3:
-      gridClass = 'grid-3'
-    break;
-    case 2:
-      gridClass = 'grid-2'
-    break;
-    default:
-      gridClass = 'grid-1';
-  }
+  let gridClass = putGridClass({ arrCompare: tweet.photoTweets });
   
   newPost.innerHTML = `
     <div class='post__profile'>
@@ -124,12 +128,14 @@ export const createNewTweetElement = ({ tweet }) => {
       ${tweet.tweetValue}
     </div>
     
-    <div class='post__tweetImg-box ${gridClass}'>
+    <div class='${tweet.photoTweets.length > 0 ? `post__tweetImg-box ${gridClass}`: ''}'>
       ${
         tweet.photoTweets.map(urlTweet => {
           return `<img src='${urlTweet}' class='post__tweetImg' />`
         }).join('')
       }
+      
+      ${createNewGalleryElement()}
     </div>
     
     <div class='post__data'>
@@ -240,6 +246,7 @@ export const createNewTweetElement = ({ tweet }) => {
   
   return {
     domElement: newPost,
+    arrImg: tweet.photoTweets,
     parentToPrependClass: '.dashboard__tweetPosts'
   };
 };

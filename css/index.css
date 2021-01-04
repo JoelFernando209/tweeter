@@ -135,6 +135,10 @@ input, button {
   font-family: inherit;
   font-size: inherit; }
 
+.pswp img {
+  max-width: none;
+  object-fit: contain !important; }
+
 body {
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 400;

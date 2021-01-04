@@ -2,9 +2,10 @@ import { createProcess, setLoadingPage, removeLoadingPage, formatName } from './
 import { actualUrl } from './actualUrl.js';
 import { uploadTweet, setPhotoTweet, resetPhotoTweet } from './firebase/firestoreComponents.js';
 import { setOptionsItemColorEvent, setOptionEventsTweets } from './tweet/tweetStyleComponents.js';
-import { createNewTweetElement, prependChild, profileMenuHandler, createImg, removeAllChildNodes } from './general/domComponents.js';
+import { createNewTweetElement, prependChild, profileMenuHandler, createImg, removeAllChildNodes, putGridClass } from './general/domComponents.js';
 import { uploadNormalImg, createRef } from './firebase/storageComponents.js';
 import { getUid } from './auth/authComponents.js';
+import { createGallery, setEventGallery } from './tweet/galleryTweet.js';
 
 const headerParentProfile = document.querySelector('.header__profile');
 const headerArrow = document.querySelector('.header__arrow');
@@ -80,6 +81,8 @@ tweetSubmitBtn.addEventListener('click', () => {
       [
         setOptionEventsTweets,
         prependChild,
+        setEventGallery,
+        createGallery,
         createNewTweetElement,
         uploadTweet
       ],
@@ -125,21 +128,12 @@ addImgInput.addEventListener('change', event => {
   } else if(arrayFiles.length >= 1) {
     removeAllChildNodes({ element: document.querySelector('.tweet__images') });
     
-    
     tweetErr.innerHTML = '';
-    
     tweetImages.classList.remove('ds-none');
     
-    switch (arrayFiles.length) {
-      case 3:
-        tweetImages.classList.add('grid-3');
-      break;
-      case 2:
-        tweetImages.classList.add('grid-2');
-      break;
-      default:
-        tweetImages.classList.add('grid-1');
-    }
+    const gridClass = putGridClass({ arrCompare: arrayFiles });
+    
+    tweetImages.classList.add(gridClass);
     
     const photoUploadProcess = ({ file }) => createProcess(
       [

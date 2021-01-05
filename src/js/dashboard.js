@@ -22,6 +22,8 @@ const authPopup = document.querySelector('.auth--popup');
 
 let wasSignedIn = false; // To show other message when signed out and dont to require that needs to be authneticated.
 
+let doTweetWasSubmitted = false;
+
 firebase.auth().onAuthStateChanged(user => {
   if(user && user.emailVerified) {
     const headerName = document.querySelector('.header__name');
@@ -71,6 +73,8 @@ signOutMenu.addEventListener('click', () => {
 })
 
 tweetSubmitBtn.addEventListener('click', () => {
+  doTweetWasSubmitted = true;
+  
   const tweetTextArea = document.querySelector('.tweet__textarea');
   const tweetErr = document.querySelector('.tweet__err')
   
@@ -127,6 +131,20 @@ addImgInput.addEventListener('change', event => {
       photoRef.delete();
     })
   }
+  
+  setTimeout(() => {
+    if(doTweetWasSubmitted) {
+      return;
+    } else {
+      getPhotoTweets().forEach(photo => {
+        const photoRef = firebase.storage().ref(`tweets/${getUid()}/${photo.fileName}`);
+        
+        photoRef.delete();
+      })
+    }
+    
+    doTweetWasSubmitted = false;
+  }, 2 * 60 * 60 * 1000) // 2 horas
   
   resetPhotoTweet();
   tweetImages.className = 'tweet__images ds-none';

@@ -30,7 +30,7 @@ export const changeColorWhenClick = (element, defaultColor, newColor, path, last
 }
 
 export const createImg = ({ url, parentClass, errElement, elementClass }) => {
-  const parentElement = document.querySelector(`.${parentClass}`);
+  const parentElement = document.querySelector(parentClass);
 
   const imgItemBox = document.createElement('div');
   imgItemBox.className = elementClass;
@@ -131,7 +131,7 @@ export const createNewTweetElement = ({ tweet }) => {
     <div class='${tweet.photoTweets.length > 0 ? `post__tweetImg-box ${gridClass}`: ''}'>
       ${
         tweet.photoTweets.map(urlTweet => {
-          return `<img src='${urlTweet}' class='post__tweetImg' />`
+          return `<img src='${urlTweet.url}' class='post__tweetImg' />`
         }).join('')
       }
       

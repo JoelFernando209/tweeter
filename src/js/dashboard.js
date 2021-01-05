@@ -1,11 +1,11 @@
 import { createProcess, setLoadingPage, removeLoadingPage, formatName } from './general/generalFunc.js';
 import { actualUrl } from './actualUrl.js';
-import { uploadTweet, setPhotoTweet, resetPhotoTweet } from './firebase/firestoreComponents.js';
+import { uploadTweet, setPhotoTweet, resetPhotoTweet, getPhotoTweets } from './firebase/firestoreComponents.js';
 import { setOptionsItemColorEvent, setOptionEventsTweets } from './tweet/tweetStyleComponents.js';
 import { createNewTweetElement, prependChild, profileMenuHandler, createImg, removeAllChildNodes, putGridClass } from './general/domComponents.js';
-import { uploadNormalImg, createRef } from './firebase/storageComponents.js';
+import { uploadNormalImg, createRef, deleteAllFilesFromFolder } from './firebase/storageComponents.js';
 import { getUid } from './auth/authComponents.js';
-import { createGallery, setEventGallery } from './tweet/galleryTweet.js';
+import { createGallery, setEventGallery, createNewGalleryElement } from './tweet/galleryTweet.js';
 
 const headerParentProfile = document.querySelector('.header__profile');
 const headerArrow = document.querySelector('.header__arrow');
@@ -82,7 +82,7 @@ tweetSubmitBtn.addEventListener('click', () => {
         setOptionEventsTweets,
         prependChild,
         setEventGallery,
-        createGallery,
+        createGallery('.post__tweetImg'),
         createNewTweetElement,
         uploadTweet
       ],
@@ -120,6 +120,14 @@ addImgInput.addEventListener('change', event => {
   let arrayFiles = Object.values(event.target.files);
   const tweetImages = document.querySelector('.tweet__images');
   
+  if(getPhotoTweets().length > 0) {
+    getPhotoTweets().forEach(photo => {
+      const photoRef = firebase.storage().ref(`tweets/${getUid()}/${photo.fileName}`);
+      
+      photoRef.delete();
+    })
+  }
+  
   resetPhotoTweet();
   tweetImages.className = 'tweet__images ds-none';
   
@@ -138,11 +146,17 @@ addImgInput.addEventListener('change', event => {
     const photoUploadProcess = ({ file }) => createProcess(
       [
         uploadNormalImg({
-          endFunc: ({ url, parentClass, errElement }) => {
+          endFunc: ({ url, parentClass, errElement, name }) => {
+            const domElement = document.querySelector(parentClass);
+            
+            setPhotoTweet({
+              url,
+              fileName: name,
+              errElement,
+            });
             createImg({ url, parentClass, errElement, elementClass: 'tweet__imagesItemBox' });
-            setPhotoTweet({ url, errElement });
           },
-          parentClass: 'tweet__images'
+          parentClass: '.tweet__images'
         }),
         createRef
       ],
@@ -153,7 +167,7 @@ addImgInput.addEventListener('change', event => {
       }
     );
     
-    arrayFiles.forEach(file => {
+    arrayFiles.forEach((file, index) => {
       const taskPhoto = photoUploadProcess({ file });
       
       taskPhoto();

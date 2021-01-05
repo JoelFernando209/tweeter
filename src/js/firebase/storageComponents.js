@@ -41,13 +41,14 @@ export const uploadNormalImg = ({ endFunc, parentClass }) => ({ ref, errElement,
     file: fileToUpload
   })
   .then(snapshot => {
-    endFunc({ url: imgGetDownloadURL({ task: snapshot }), parentClass, errElement })
+    endFunc({ url: imgGetDownloadURL({ task: snapshot }), parentClass, errElement, name: fileToUpload.name })
   })
   .catch(err => {
     errElement.innerHTML = err.message;
+    console.log(err.message)
   })
   
-  
+  return taskImg;
 };
 
 export const uploadProfileImg = ({ loadingElement, endFunc }) => ({ ref, errElement, fileToUpload }) => {

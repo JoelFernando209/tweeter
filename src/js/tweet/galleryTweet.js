@@ -54,7 +54,7 @@ export const createNewGalleryElement = () => `
 const setItemGallery = ({ arrImg }) => {
   return arrImg.map((imgUrl, index) => {
     return {
-      src: imgUrl,
+      src: imgUrl.url,
       w: 0,
       h: 0
     }
@@ -79,7 +79,7 @@ const getImgWidthAndHeight = ({ galleryClass }) => {
   })
 };
 
-export const createGallery = ({ domElement, arrImg, parentToPrependClass }) => {
+export const createGallery = imagesItemsClass => ({ domElement, arrImg, parentToPrependClass }) => {
   const galleryElement = domElement.querySelector('.pswp');
   const itemsGallery = setItemGallery({ arrImg });
   
@@ -99,12 +99,15 @@ export const createGallery = ({ domElement, arrImg, parentToPrependClass }) => {
   return {
     domElement,
     clickEventHandler,
-    parentToPrependClass
+    parentToPrependClass,
+    imagesItemsClass
   };
 };
 
-export const setEventGallery = ({ domElement, clickEventHandler, parentToPrependClass }) => {
-  const imagesItems = domElement.querySelectorAll('.post__tweetImg');
+export const setEventGallery = ({ domElement, clickEventHandler, parentToPrependClass, imagesItemsClass }) => {
+  const imagesItems = domElement.querySelectorAll(imagesItemsClass);
+  
+  console.log('HOLA', imagesItems);
   
   imagesItems.forEach((img, index) => {
     img.addEventListener('click', () => {

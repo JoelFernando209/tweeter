@@ -50,10 +50,15 @@ export const uploadTweet = ({ tweetVal, catchFunc, catchErrElement }) => {
   }
 };
 
-export const setPhotoTweet = ({ url, errElement }) => {
+export const setPhotoTweet = ({ url, fileName, errElement }) => {
   url
     .then(urlTarget => {
-      photoTweets.push(urlTarget);
+      photoTweets.push({
+        fileName,
+        url: urlTarget
+      });
+      
+      console.log(photoTweets);
       
       return photoTweets;
     })
@@ -62,6 +67,8 @@ export const setPhotoTweet = ({ url, errElement }) => {
       console.log(err.message);
     })
 }
+
+export const getPhotoTweets = () => photoTweets;
 
 export const resetPhotoTweet = () => {
   photoTweets = [];

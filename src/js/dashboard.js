@@ -1,8 +1,8 @@
 import { createProcess, setLoadingPage, removeLoadingPage, formatName } from './general/generalFunc.js';
 import { actualUrl } from './actualUrl.js';
-import { uploadTweet, setPhotoTweet, resetPhotoTweet, getPhotoTweets } from './firebase/firestoreComponents.js';
+import { uploadTweet, setPhotoTweet, resetPhotoTweet, getPhotoTweets, changeStatusVisibility } from './firebase/firestoreComponents.js';
 import { setOptionsItemColorEvent, setOptionEventsTweets } from './tweet/tweetStyleComponents.js';
-import { createNewTweetElement, prependChild, profileMenuHandler, createImg, removeAllChildNodes, putGridClass } from './general/domComponents.js';
+import { createNewTweetElement, prependChild, profileMenuHandler, createImg, removeAllChildNodes, putGridClass, toggleElementClick } from './general/domComponents.js';
 import { uploadNormalImg, createRef, deleteAllFilesFromFolder } from './firebase/storageComponents.js';
 import { getUid } from './auth/authComponents.js';
 import { createGallery, setEventGallery, createNewGalleryElement } from './tweet/galleryTweet.js';
@@ -58,6 +58,23 @@ firebase.auth().onAuthStateChanged(user => {
     }
   }
 })
+
+firebase.firestore().collection('tweets')
+  .onSnapshot(tweetsCollection => {
+    tweetsCollection.forEach(tweet => {
+      const newTweetPost = createNewTweetElement({ tweet: tweet.data() });
+      
+      if(tweet.data().photoTweets.length > 0) {
+        const galleryTweet = createGallery('.post__tweetImg')(newTweetPost);
+        
+        setEventGallery(galleryTweet);
+      }
+      
+      prependChild(newTweetPost);
+      
+      setOptionEventsTweets();
+    });
+  })
 
 const headerParentProfileEvent = profileMenuHandler({
   profileMenu,
@@ -194,3 +211,31 @@ addImgInput.addEventListener('change', event => {
     addImgInput.input = '';
   }
 })
+
+const tweetReplyConfig = document.querySelector('.tweet__replyConfig');
+const tweetReplyStatus = document.querySelector('.tweet__replyStatus');
+const tweetReplyOptions = document.querySelector('.tweet__replyOptions');
+
+const tweetReplyOptionEveryone = document.querySelector('.tweet__replyOptionsItem--everyone');
+const tweetReplyOptionFollow = document.querySelector('.tweet__replyOptionsItem--follow');
+
+const tweetReplyEvent = toggleElementClick(tweetReplyConfig, tweetReplyOptions);
+tweetReplyEvent();
+
+tweetReplyOptionEveryone.addEventListener('click', () => {
+  changeStatusVisibility('everyone');
+  
+  tweetReplyOptionEveryone.style.fontWeight = '800';
+  tweetReplyOptionFollow.style.fontWeight = '';
+  
+  tweetReplyStatus.innerText = 'Everyone can reply';
+});
+
+tweetReplyOptionFollow.addEventListener('click', () => {
+  changeStatusVisibility('follow');
+  
+  tweetReplyOptionFollow.style.fontWeight = '800';
+  tweetReplyOptionEveryone.style.fontWeight = '';
+  
+  tweetReplyStatus.innerText = 'People you follow';
+});

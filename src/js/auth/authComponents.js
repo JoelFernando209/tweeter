@@ -16,6 +16,8 @@ export const userVerified = () => {
 
 export const getName = () => auth.currentUser.displayName;
 
+export const getEmail = () => auth.currentUser.email;
+
 export const getUid = () => auth.currentUser.uid;
 
 export const getProfilePhoto = () => {

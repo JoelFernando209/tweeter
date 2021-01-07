@@ -1,8 +1,9 @@
-import { userVerified, getName, getUid, getProfilePhoto } from '../auth/authComponents.js';
+import { userVerified, getName, getEmail, getUid, getProfilePhoto } from '../auth/authComponents.js';
 import { formatDateTweet } from '../general/generalFunc.js';
 
 const firestore = firebase.firestore();
 let photoTweets = [];
+let statusVisibilityTweets = 'everyone';
 
 export const getServerTimestamp = () => firebase.firestore.FieldValue.serverTimestamp();
 
@@ -20,12 +21,14 @@ export const uploadTweet = ({ tweetVal, catchFunc, catchErrElement }) => {
     const tweetObj = {
       tweetValue: tweetVal,
       author: getName(),
+      email: getEmail(),
       uid: getUid(),
       date: formatDateTweet({
         date: new Date()
       }),
       profilePhoto: getProfilePhoto(),
-      photoTweets: photoTweets
+      photoTweets: photoTweets,
+      statusVisibilityTweets
     }
     
     addDoc({
@@ -58,8 +61,6 @@ export const setPhotoTweet = ({ url, fileName, errElement }) => {
         url: urlTarget
       });
       
-      console.log(photoTweets);
-      
       return photoTweets;
     })
     .catch(err => {
@@ -74,4 +75,10 @@ export const resetPhotoTweet = () => {
   photoTweets = [];
   
   return photoTweets;
+}
+
+export const changeStatusVisibility = (change) => {
+  statusVisibilityTweets = change;
+  
+  return statusVisibilityTweets;
 }

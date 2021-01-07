@@ -60,3 +60,15 @@ export const hideOnClickOutside = elemesnt => {
 
   document.addEventListener('click', outsideClickListener)
 }
+
+const outputId = () => {
+  let actualId = 0;
+  
+  return () => {
+    actualId++;
+    
+    return actualId;
+  };
+}
+
+export const generateNewId = outputId();

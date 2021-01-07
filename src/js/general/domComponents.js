@@ -1,4 +1,5 @@
 import { createNewGalleryElement } from '../tweet/galleryTweet.js';
+import { generateNewId } from './generalFunc.js';
 
 export const iterateQuerySelectorAll = (query, func, params) => {
   query.forEach(element => {
@@ -107,12 +108,33 @@ export const prependChild = ({ domElement, parentToPrependClass }) => {
   }
 };
 
+export const toggleElementClick = (clicker, toggleElement) => {
+  let eventHandler = false;
+  
+  return () => {
+    clicker.addEventListener('click', () => {
+      if(eventHandler) {
+        toggleElement.style.opacity = '1';
+        toggleElement.style.visibility = 'visible';
+      } else {
+        toggleElement.style.opacity = '0';
+        toggleElement.style.visibility = 'hidden';
+      }
+      
+      eventHandler = !eventHandler;
+    })
+  }
+}
+
 export const createNewTweetElement = ({ tweet }) => {
+  const idTweet = generateNewId();
   
   const newPost = document.createElement('div');
   newPost.className = 'post';
   
   let gridClass = putGridClass({ arrCompare: tweet.photoTweets });
+  
+  console.log(tweet)
   
   newPost.innerHTML = `
     <div class='post__profile'>
@@ -130,9 +152,12 @@ export const createNewTweetElement = ({ tweet }) => {
     
     <div class='${tweet.photoTweets.length > 0 ? `post__tweetImg-box ${gridClass}`: ''}'>
       ${
-        tweet.photoTweets.map(urlTweet => {
-          return `<img src='${urlTweet.url}' class='post__tweetImg' />`
-        }).join('')
+        tweet.photoTweets.length > 0 ?
+          tweet.photoTweets.map(urlTweet => {
+            return `<img src='${urlTweet.url}' class='post__tweetImg' />`
+          }).join('')
+        :
+          ''
       }
       
       ${createNewGalleryElement()}
@@ -179,11 +204,11 @@ export const createNewTweetElement = ({ tweet }) => {
       <div class='post__postComment'>
         <img src='./img/default-profile.jpg' class='post__commentPicture' alt='Profile Picture' />
         
-        <label class='post__commentInputBox' for='inputComment-1'>
+        <label class='post__commentInputBox' for='inputComment-${idTweet}'>
           
           <img src='img/add-image.svg' alt='addImage' class='post__commentInputIcon' title='Add an image to your comment'/>
           
-          <input type='text' class='post__postCommentInput' id='inputComment-1' placeholder='Tweet your reply' />
+          <input type='text' class='post__postCommentInput' id='inputComment-${idTweet}' placeholder='Tweet your reply' />
         </label>
         
         <div class='post__postCommentIcon'></div>

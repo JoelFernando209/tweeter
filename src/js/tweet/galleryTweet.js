@@ -107,8 +107,6 @@ export const createGallery = imagesItemsClass => ({ domElement, arrImg, parentTo
 export const setEventGallery = ({ domElement, clickEventHandler, parentToPrependClass, imagesItemsClass }) => {
   const imagesItems = domElement.querySelectorAll(imagesItemsClass);
   
-  console.log('HOLA', imagesItems);
-  
   imagesItems.forEach((img, index) => {
     img.addEventListener('click', () => {
       clickEventHandler(index);

@@ -134,8 +134,6 @@ export const createNewTweetElement = ({ tweet }) => {
   
   let gridClass = putGridClass({ arrCompare: tweet.photoTweets });
   
-  console.log(tweet)
-  
   newPost.innerHTML = `
     <div class='post__profile'>
       <img src='${tweet.profilePhoto}' alt='Profile picture' class='post__profileImg' />

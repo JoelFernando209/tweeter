@@ -6,6 +6,7 @@ import { createNewTweetElement, prependChild, profileMenuHandler, createImg, rem
 import { uploadNormalImg, createRef, deleteAllFilesFromFolder } from './firebase/storageComponents.js';
 import { getUid } from './auth/authComponents.js';
 import { createGallery, setEventGallery, createNewGalleryElement } from './tweet/galleryTweet.js';
+import { bytesToMB } from './general/formatComponents.js';
 
 const headerParentProfile = document.querySelector('.header__profile');
 const headerArrow = document.querySelector('.header__arrow');
@@ -57,24 +58,27 @@ firebase.auth().onAuthStateChanged(user => {
       `
     }
   }
-})
-
-firebase.firestore().collection('tweets')
-  .onSnapshot(tweetsCollection => {
-    tweetsCollection.forEach(tweet => {
-      const newTweetPost = createNewTweetElement({ tweet: tweet.data() });
+  
+  firebase.firestore().collection('tweets')
+    .where('uid', '!=', user.uid)
+    .onSnapshot(tweetsCollection => {
+      document.querySelector('.dashboard__tweetPostsLoading').style.display = 'none';
       
-      if(tweet.data().photoTweets.length > 0) {
-        const galleryTweet = createGallery('.post__tweetImg')(newTweetPost);
+      tweetsCollection.forEach((tweet, index) => {
+        const newTweetPost = createNewTweetElement({ tweet: tweet.data() });
         
-        setEventGallery(galleryTweet);
-      }
-      
-      prependChild(newTweetPost);
-      
-      setOptionEventsTweets();
-    });
-  })
+        if(tweet.data().photoTweets.length > 0) {
+          const galleryTweet = createGallery('.post__tweetImg')(newTweetPost);
+          
+          setEventGallery(galleryTweet);
+        }
+        
+        prependChild(newTweetPost);
+        
+        setOptionEventsTweets();
+      });
+    })
+})
 
 const headerParentProfileEvent = profileMenuHandler({
   profileMenu,
@@ -89,10 +93,25 @@ signOutMenu.addEventListener('click', () => {
   .catch(err => console.log(err.message));
 })
 
+const tweetTextArea = document.querySelector('.tweet__textarea');
+
+tweetTextArea.addEventListener('input', () => {
+  const textAreaValue = tweetTextArea.innerHTML;
+  
+  const resultTextArea = textAreaValue.split(' ').map(word => {
+    if(word.charAt(0) === '#') {
+      return `<span class='hashtag'>${word}</span>`;
+    }
+    
+    return word;
+  });
+  
+  tweetTextArea.innerHTML = resultTextArea.join(' ');
+});
+
 tweetSubmitBtn.addEventListener('click', () => {
   doTweetWasSubmitted = true;
   
-  const tweetTextArea = document.querySelector('.tweet__textarea');
   const tweetErr = document.querySelector('.tweet__err')
   
   if(tweetTextArea.value.length > 0) {
@@ -165,6 +184,14 @@ addImgInput.addEventListener('change', event => {
   
   resetPhotoTweet();
   tweetImages.className = 'tweet__images ds-none';
+  
+  if(arrayFiles.length > 0) {
+    if(!arrayFiles.every(file => bytesToMB(file.size) < 5)) {
+      tweetErr.innerHTML = '*The files cannot be bigger of 5 MB';
+      
+      return;
+    }
+  }
   
   if(arrayFiles.length > 3) {
     tweetErr.innerHTML = '*You can only put a maximum of three files';

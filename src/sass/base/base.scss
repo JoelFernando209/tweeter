@@ -46,3 +46,17 @@ input, button {
   max-width: none;
   object-fit: contain !important;
 }
+
+.hashtag {
+  color: $color-primary;
+  text-decoration: underline;
+  cursor: pointer;
+  
+  &:hover {
+    color: darken($color-primary, 5%);
+  }
+  
+  &:active {
+    color: darken($color-primary, 10%);
+  }
+}

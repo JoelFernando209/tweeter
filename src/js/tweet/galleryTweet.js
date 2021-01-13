@@ -79,7 +79,7 @@ const getImgWidthAndHeight = ({ galleryClass }) => {
   })
 };
 
-export const createGallery = imagesItemsClass => ({ domElement, arrImg, parentToPrependClass }) => {
+export const createGallery = imagesItemsClass => ({ domElement, arrImg, parentToPrependClass, tweetId }) => {
   const galleryElement = domElement.querySelector('.pswp');
   const itemsGallery = setItemGallery({ arrImg });
   
@@ -100,11 +100,12 @@ export const createGallery = imagesItemsClass => ({ domElement, arrImg, parentTo
     domElement,
     clickEventHandler,
     parentToPrependClass,
-    imagesItemsClass
+    imagesItemsClass,
+    tweetId
   };
 };
 
-export const setEventGallery = ({ domElement, clickEventHandler, parentToPrependClass, imagesItemsClass }) => {
+export const setEventGallery = ({ domElement, clickEventHandler, parentToPrependClass, imagesItemsClass, tweetId }) => {
   const imagesItems = domElement.querySelectorAll(imagesItemsClass);
   
   imagesItems.forEach((img, index) => {
@@ -115,6 +116,7 @@ export const setEventGallery = ({ domElement, clickEventHandler, parentToPrepend
   
   return {
     domElement,
-    parentToPrependClass
+    parentToPrependClass,
+    tweetId
   }
 };

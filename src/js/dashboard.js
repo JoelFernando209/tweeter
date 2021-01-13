@@ -1,12 +1,13 @@
 import { createProcess, setLoadingPage, removeLoadingPage, formatName } from './general/generalFunc.js';
 import { actualUrl } from './actualUrl.js';
-import { uploadTweet, setPhotoTweet, resetPhotoTweet, getPhotoTweets, changeStatusVisibility } from './firebase/firestoreComponents.js';
+import { uploadTweet, setPhotoTweet, resetPhotoTweet, getPhotoTweets, changeStatusVisibility, setCommentEvent } from './firebase/firestoreComponents.js';
 import { setOptionsItemColorEvent, setOptionEventsTweets } from './tweet/tweetStyleComponents.js';
-import { createNewTweetElement, prependChild, profileMenuHandler, createImg, removeAllChildNodes, putGridClass, toggleElementClick } from './general/domComponents.js';
+import { createNewTweetElement, prependChild, profileMenuHandler, createImg, removeAllChildNodes, putGridClass, toggleElementClick, setNewDomComment } from './general/domComponents.js';
 import { uploadNormalImg, createRef, deleteAllFilesFromFolder } from './firebase/storageComponents.js';
 import { getUid } from './auth/authComponents.js';
 import { createGallery, setEventGallery, createNewGalleryElement } from './tweet/galleryTweet.js';
 import { bytesToMB } from './general/formatComponents.js';
+import { setInputLimit } from './components/setInputLimit.js';
 
 const headerParentProfile = document.querySelector('.header__profile');
 const headerArrow = document.querySelector('.header__arrow');
@@ -29,11 +30,13 @@ firebase.auth().onAuthStateChanged(user => {
   if(user && user.emailVerified) {
     const headerName = document.querySelector('.header__name');
     const headerProfile = document.querySelector('.header__img-profile');
+    const tweetProfile = document.querySelector('.tweet__profileImg');
     
     headerName.innerHTML = formatName(user.displayName);
     
     if(user.photoURL) {
-      headerProfile.setAttribute('src', user.photoURL)
+      headerProfile.setAttribute('src', user.photoURL);
+      tweetProfile.setAttribute('src', user.photoURL);
     } else {
       headerProfile.setAttribute('src', 'img/default-profile.jpg')
     }
@@ -65,7 +68,7 @@ firebase.auth().onAuthStateChanged(user => {
       document.querySelector('.dashboard__tweetPostsLoading').style.display = 'none';
       
       tweetsCollection.forEach((tweet, index) => {
-        const newTweetPost = createNewTweetElement({ tweet: tweet.data() });
+        const newTweetPost = createNewTweetElement({ tweet: tweet.data(), tweetId: tweet.id });
         
         if(tweet.data().photoTweets.length > 0) {
           const galleryTweet = createGallery('.post__tweetImg')(newTweetPost);
@@ -76,6 +79,25 @@ firebase.auth().onAuthStateChanged(user => {
         prependChild(newTweetPost);
         
         setOptionEventsTweets();
+        
+        setCommentEvent(newTweetPost);
+        
+        firebase.firestore().collection('tweets').doc(tweet.id)
+          .collection('comments')
+          .orderBy('date', 'asc')
+          .get()
+          .then(commentsCollection => {
+            
+            if(commentsCollection) {
+              commentsCollection.forEach(comment => {
+                setNewDomComment({
+                  parentPost: newTweetPost.domElement,
+                  comment: comment.data()
+                });
+              })
+            }
+            
+          })
       });
     })
 })
@@ -95,19 +117,7 @@ signOutMenu.addEventListener('click', () => {
 
 const tweetTextArea = document.querySelector('.tweet__textarea');
 
-tweetTextArea.addEventListener('input', () => {
-  const textAreaValue = tweetTextArea.innerHTML;
-  
-  const resultTextArea = textAreaValue.split(' ').map(word => {
-    if(word.charAt(0) === '#') {
-      return `<span class='hashtag'>${word}</span>`;
-    }
-    
-    return word;
-  });
-  
-  tweetTextArea.innerHTML = resultTextArea.join(' ');
-});
+setInputLimit(tweetTextArea, 400);
 
 tweetSubmitBtn.addEventListener('click', () => {
   doTweetWasSubmitted = true;

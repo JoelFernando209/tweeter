@@ -554,7 +554,7 @@ body {
   justify-content: space-between;
   background-color: white;
   padding: 0 5rem; }
-  @media only screen and (max-width: 31.25em) {
+  @media only screen and (max-width: 43.75em) {
     .header {
       padding: 1rem 1.5rem;
       display: grid;
@@ -568,13 +568,13 @@ body {
     @media only screen and (max-width: 62.5em) {
       .header__sections {
         width: 20%; } }
-    @media only screen and (max-width: 31.25em) {
+    @media only screen and (max-width: 43.75em) {
       .header__sections {
         grid-column: 1 / -1;
         width: 100%;
         justify-content: center;
         align-items: center; } }
-  @media only screen and (max-width: 31.25em) {
+  @media only screen and (max-width: 43.75em) {
     .header__logo {
       grid-row: 1 / 2; } }
   .header__item {
@@ -603,7 +603,7 @@ body {
     padding: 0 1rem; }
     .header__profile:hover {
       background-color: #e6e6e6; }
-    @media only screen and (max-width: 31.25em) {
+    @media only screen and (max-width: 43.75em) {
       .header__profile {
         grid-row: 1 / 2;
         padding: 1rem;
@@ -870,7 +870,8 @@ body {
     width: 3.5rem;
     height: 3.5rem;
     margin-right: .5rem;
-    border-radius: 0.5rem; }
+    border-radius: 0.5rem;
+    object-fit: cover; }
   .tweet__dataTweet {
     display: flex;
     margin-bottom: 1.5rem; }
@@ -928,6 +929,7 @@ body {
     position: absolute;
     bottom: -18rem;
     left: 0;
+    z-index: 100;
     background-color: white;
     padding: 1.5rem;
     border-radius: 2rem;
@@ -1138,29 +1140,43 @@ body {
   .post__postComment {
     position: relative;
     display: flex;
-    margin-bottom: 3rem; }
+    margin-bottom: 3rem;
+    animation: postEntrance 1s ease-out; }
   .post__commentPicture {
     width: 3.5rem;
     height: 3.5rem;
     border-radius: 0.5rem;
-    margin-right: 1rem; }
+    margin-right: 1rem;
+    object-fit: cover; }
   .post__commentInputBox {
     position: relative;
     width: 100%; }
   .post__commentInputIcon {
     position: absolute;
-    width: 1.5rem;
-    height: 1.5rem;
     top: 50%;
     transform: translateY(-50%);
-    right: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    right: 3rem;
     cursor: pointer;
     opacity: .4;
     transition: all .3s; }
     .post__commentInputIcon:hover {
       opacity: .8; }
+  .post__commentSendIcon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.5rem;
+    height: 1.5rem;
+    right: 1rem;
+    cursor: pointer;
+    opacity: .4;
+    transition: all .3s; }
+    .post__commentSendIcon:hover {
+      opacity: .8; }
   .post__postCommentInput {
-    width: 100%;
+    width: 90%;
     border-radius: .5rem;
     background-color: #FAFAFA;
     border: none;
@@ -1194,7 +1210,8 @@ body {
     display: flex;
     align-items: center;
     font-size: 1rem;
-    opacity: .7; }
+    opacity: .7;
+    cursor: pointer; }
     .post__commentOptionsItem:not(:last-child) {
       margin-right: 1rem; }
   .post__commentOptionsIcon {

@@ -168,6 +168,7 @@
     position: relative;
     display: flex;
     margin-bottom: 3rem;
+    animation: postEntrance 1s ease-out;
   }
   
   &__commentPicture {
@@ -175,6 +176,7 @@
     height: 3.5rem;
     border-radius: $borderRadius-profilePicture;
     margin-right: 1rem;
+    object-fit: cover;
   }
   
   &__commentInputBox {
@@ -183,11 +185,25 @@
   }
   
   &__commentInputIcon {
-    position: absolute;
+    @include centerY();
+    
     width: 1.5rem;
     height: 1.5rem;
-    top: 50%;
-    transform: translateY(-50%);
+    right: 3rem;
+    cursor: pointer;
+    opacity: .4;
+    transition: all .3s;
+    
+    &:hover {
+      opacity: .8;
+    }
+  }
+  
+  &__commentSendIcon {
+    @include centerY();
+    
+    width: 1.5rem;
+    height: 1.5rem;
     right: 1rem;
     cursor: pointer;
     opacity: .4;
@@ -199,7 +215,7 @@
   }
   
   &__postCommentInput {
-    width: 100%;
+    width: 90%;
     border-radius: .5rem;
     background-color: #FAFAFA;
     border: none;
@@ -255,6 +271,7 @@
     align-items: center;
     font-size: 1rem;
     opacity: .7;
+    cursor: pointer;
     
     &--amountLikes {
       

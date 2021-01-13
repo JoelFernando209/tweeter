@@ -6,7 +6,7 @@
 
   padding: 0 5rem;
   
-  @include respond(phone) {
+  @include respond(tablet) {
     padding: 1rem 1.5rem;
     
     display: grid;
@@ -25,7 +25,7 @@
       width: 20%;
     }
 
-    @include respond(phone) {
+    @include respond(tablet) {
       grid-column: 1 / -1;
       
       width: 100%;
@@ -35,7 +35,7 @@
   }
   
   &__logo {
-    @include respond(phone) {
+    @include respond(tablet) {
       grid-row: 1 / 2;
     }
   }
@@ -81,7 +81,7 @@
       background-color: darken(white, 10%);
     }
     
-    @include respond(phone) {
+    @include respond(tablet) {
       grid-row: 1 / 2;
       padding: 1rem;
       

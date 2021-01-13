@@ -1,5 +1,6 @@
 import { userVerified, getName, getEmail, getUid, getProfilePhoto } from '../auth/authComponents.js';
 import { formatDateTweet } from '../general/generalFunc.js';
+import { setNewDomComment } from '../general/domComponents.js';
 
 const firestore = firebase.firestore();
 let photoTweets = [];
@@ -35,9 +36,10 @@ export const uploadTweet = ({ tweetVal, catchFunc, catchErrElement }) => {
       collectionTarget: 'tweets',
       docObj: tweetObj
     })
-    .then(() => {
+    .then(doc => {
       photoTweets = [];
       catchErrElement.innerHTML = '';
+      
     })
     .catch(err => {
       catchErrElement.innerHTML = err.message;
@@ -51,6 +53,45 @@ export const uploadTweet = ({ tweetVal, catchFunc, catchErrElement }) => {
     catchFunc();
     return;
   }
+};
+
+export const setCommentEvent = ({ domElement, arrImg, parentToPrependClass, tweetId }) => {
+  const commentInput = domElement.querySelector('.post__postCommentInput');
+  const commentSend = domElement.querySelector('.post__commentSendIcon');
+  
+  commentSend.addEventListener('click', () => {
+    const inputValue = commentInput.value;
+    
+    if(inputValue.trim().length > 0) {
+      const objData = {
+        commentText: inputValue,
+        uid: getUid(),
+        date: formatDateTweet({
+          date: new Date()
+        }),
+        author: getName(),
+        profilePhoto: getProfilePhoto()
+      }
+      
+      firestore.collection('tweets').doc(tweetId)
+               .collection('comments').add(objData)
+               .catch(err => {
+                 console.log(err.message);
+               })
+               
+      
+      setNewDomComment({ parentPost: domElement, comment: objData});
+      
+    }
+    
+  });
+  
+  return {
+    domElement,
+    arrImg,
+    parentToPrependClass,
+    tweetId
+  };
 };
 
 export const setPhotoTweet = ({ url, fileName, errElement }) => {

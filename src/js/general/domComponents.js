@@ -1,5 +1,6 @@
 import { createNewGalleryElement } from '../tweet/galleryTweet.js';
 import { generateNewId } from './generalFunc.js';
+import { formatHashtag } from './formatComponents.js';
 
 export const iterateQuerySelectorAll = (query, func, params) => {
   query.forEach(element => {
@@ -98,7 +99,7 @@ export const profileMenuHandler = ({ profileMenu, headerArrow }) => {
   }
 }
 
-export const prependChild = ({ domElement, parentToPrependClass }) => {
+export const prependChild = ({ domElement, parentToPrependClass, tweetId }) => {
   const parentToPrependElement = document.querySelector(parentToPrependClass);
   
   parentToPrependElement.prepend(domElement);
@@ -126,14 +127,56 @@ export const toggleElementClick = (clicker, toggleElement) => {
   }
 }
 
-export const createNewTweetElement = ({ tweet }) => {
+export const setNewDomComment = ({ parentPost, comment }) => {
+  const commentBlock = parentPost.querySelector('.post__comments');
+  const commentInputChild = commentBlock.querySelector('.post__postComment--inputComment');
+  
+  const newComment = document.createElement('div');
+  newComment.className = 'post__postComment';
+  
+  newComment.innerHTML = `
+    <img src='${comment.profilePhoto}' class='post__commentPicture' alt='Profile picture' />
+      
+    <div class='post__commentTextBox'>
+      <div class='post__commentInfo'>
+        <span class='important-text post__commentName'>${comment.author}</span>
+        <span class='post__commentDate'>${comment.date}</span>
+      </div>
+      
+      <div class='post__commentText'>
+        ${comment.commentText}
+      </div>
+    </div>
+    
+    <div class='post__commentOptions'>
+      <span class='post__commentOptionsItem'>
+        <object data="./img/like-icon.svg" type="image/svg+xml" class='post__commentOptionsIcon'></object>
+        Like
+      </span>
+      
+      <span class='post__commentOptionsItem post__commentOptionsItem--amountLikes'>
+        12k Likes
+      </span>
+    </div>
+  `;
+  
+  // Put as second child
+  
+  commentBlock.insertBefore(newComment, commentInputChild.nextSibling);
+  
+  return {
+    comment
+  }
+};
+
+export const createNewTweetElement = ({ tweet, tweetId }) => {
   const idTweet = generateNewId();
   
   const newPost = document.createElement('div');
   newPost.className = 'post';
   
   let gridClass = putGridClass({ arrCompare: tweet.photoTweets });
-  
+    
   newPost.innerHTML = `
     <div class='post__profile'>
       <img src='${tweet.profilePhoto}' alt='Profile picture' class='post__profileImg' />
@@ -145,7 +188,7 @@ export const createNewTweetElement = ({ tweet }) => {
     </div>
     
     <div class='post__tweetText'>
-      ${tweet.tweetValue}
+      ${formatHashtag(tweet.tweetValue)}
     </div>
     
     <div class='${tweet.photoTweets.length > 0 ? `post__tweetImg-box ${gridClass}`: ''}'>
@@ -199,70 +242,19 @@ export const createNewTweetElement = ({ tweet }) => {
     </div>
     
     <div class='post__comments'>
-      <div class='post__postComment'>
+      <div class='post__postComment post__postComment--inputComment'>
         <img src='./img/default-profile.jpg' class='post__commentPicture' alt='Profile Picture' />
         
         <label class='post__commentInputBox' for='inputComment-${idTweet}'>
           
           <img src='img/add-image.svg' alt='addImage' class='post__commentInputIcon' title='Add an image to your comment'/>
           
+          <img src='img/send-icon.svg' alt='Send' class='post__commentSendIcon' title='Send your comment' />
+          
           <input type='text' class='post__postCommentInput' id='inputComment-${idTweet}' placeholder='Tweet your reply' />
         </label>
         
         <div class='post__postCommentIcon'></div>
-      </div>
-      
-      <div class='post__postComment'>
-        <img src='./img/default-profile.jpg' class='post__commentPicture' alt='Profile picture' />
-        
-        <div class='post__commentTextBox'>
-          <div class='post__commentInfo'>
-            <span class='important-text post__commentName'>Waqar Bloom</span>
-            <span class='post__commentDate'>24 August at 20:43</span>
-          </div>
-          
-          <div class='post__commentText'>
-            Ok this is epic part 2 Ok this is epic part 2 Ok this is epic part 2 Ok this is epic part 2 Ok this is epic part 2
-          </div>
-        </div>
-        
-        <div class='post__commentOptions'>
-          <span class='post__commentOptionsItem'>
-            <object data="./img/like-icon.svg" type="image/svg+xml" class='post__commentOptionsIcon'></object>
-            Like
-          </span>
-          
-          <span class='post__commentOptionsItem post__commentOptionsItem--amountLikes'>
-            12k Likes
-          </span>
-        </div>
-        
-      </div>
-    </div>
-    
-    <div class='post__postComment'>
-      <img src='./img/default-profile.jpg' class='post__commentPicture' alt='Profile picture' />
-      
-      <div class='post__commentTextBox'>
-        <div class='post__commentInfo'>
-          <span class='important-text post__commentName'>Waqar Bloom</span>
-          <span class='post__commentDate'>24 August at 20:43</span>
-        </div>
-        
-        <div class='post__commentText'>
-          Ok this is epic part 2 Ok this is epic part 2 Ok this is epic part 2 Ok this is epic part 2 Ok this is epic part 2
-        </div>
-      </div>
-      
-      <div class='post__commentOptions'>
-        <span class='post__commentOptionsItem'>
-          <object data="./img/like-icon.svg" type="image/svg+xml" class='post__commentOptionsIcon'></object>
-          Like
-        </span>
-        
-        <span class='post__commentOptionsItem post__commentOptionsItem--amountLikes'>
-          12k Likes
-        </span>
       </div>
     </div>
   `;
@@ -270,6 +262,7 @@ export const createNewTweetElement = ({ tweet }) => {
   return {
     domElement: newPost,
     arrImg: tweet.photoTweets,
-    parentToPrependClass: '.dashboard__tweetPosts'
+    parentToPrependClass: '.dashboard__tweetPosts',
+    tweetId
   };
 };

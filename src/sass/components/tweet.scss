@@ -74,6 +74,7 @@
     height: 3.5rem;
     margin-right: .5rem;
     border-radius: $borderRadius-profilePicture;
+    object-fit: cover;
   }
   
   &__dataTweet {
@@ -159,6 +160,7 @@
     position: absolute;
     bottom: -18rem;
     left: 0;
+    z-index: 100;
     
     background-color: white;
     padding: 1.5rem;

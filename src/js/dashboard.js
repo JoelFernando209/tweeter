@@ -2,12 +2,13 @@ import { createProcess, setLoadingPage, removeLoadingPage, formatName } from './
 import { actualUrl } from './actualUrl.js';
 import { uploadTweet, setPhotoTweet, resetPhotoTweet, getPhotoTweets, changeStatusVisibility, setCommentEvent } from './firebase/firestoreComponents.js';
 import { setOptionsItemColorEvent, setOptionEventsTweets } from './tweet/tweetStyleComponents.js';
-import { createNewTweetElement, prependChild, profileMenuHandler, createImg, removeAllChildNodes, putGridClass, toggleElementClick, setNewDomComment } from './general/domComponents.js';
+import { createNewTweetElement, prependChild, profileMenuHandler, createImg, removeAllChildNodes, putGridClass, toggleElementClick, setNewDomComment, setCommentsBlock } from './general/domComponents.js';
 import { uploadNormalImg, createRef, deleteAllFilesFromFolder } from './firebase/storageComponents.js';
 import { getUid } from './auth/authComponents.js';
 import { createGallery, setEventGallery, createNewGalleryElement } from './tweet/galleryTweet.js';
 import { bytesToMB } from './general/formatComponents.js';
 import { setInputLimit } from './components/setInputLimit.js';
+import { divideArrInEqualParts } from './tweet/tweetLogicComponents.js';
 
 const headerParentProfile = document.querySelector('.header__profile');
 const headerArrow = document.querySelector('.header__arrow');
@@ -23,7 +24,6 @@ const tweetSubmitBtn = document.querySelector('.tweet__submit');
 const authPopup = document.querySelector('.auth--popup');
 
 let wasSignedIn = false; // To show other message when signed out and dont to require that needs to be authneticated.
-
 let doTweetWasSubmitted = false;
 
 firebase.auth().onAuthStateChanged(user => {
@@ -89,12 +89,63 @@ firebase.auth().onAuthStateChanged(user => {
           .then(commentsCollection => {
             
             if(commentsCollection) {
-              commentsCollection.forEach(comment => {
-                setNewDomComment({
-                  parentPost: newTweetPost.domElement,
-                  comment: comment.data()
+              if(commentsCollection.size > 10) {
+                const dividedArr = divideArrInEqualParts(commentsCollection.docs, 9);
+                
+                dividedArr[0].forEach(comment => {
+                  setNewDomComment({
+                    parentPost: newTweetPost.domElement,
+                    comment: comment.data(),
+                    method: 'secondChild'
+                  });
+                })
+                
+                let commentMoreElement = setCommentsBlock(newTweetPost);
+                
+                const commentMoreElementEvent = () => {
+                  let currentIndex = 1;
+                  
+                  return () => {
+                    if(dividedArr[currentIndex]) {
+                      dividedArr[currentIndex].forEach(comment => {
+                        setNewDomComment({
+                          parentPost: newTweetPost.domElement,
+                          comment: comment.data(),
+                          method: 'append'
+                        });
+                      })
+                      
+                      currentIndex++;
+                      
+                      commentMoreElement.remove();
+                      
+                      commentMoreElement = setCommentsBlock(newTweetPost);
+                      
+                      commentMoreElement.addEventListener('click', () => {
+                        commentMoreElementEventHandler();
+                      });
+                    } else {
+                      commentMoreElement.remove();
+                    }
+                  }
+                }
+                
+                const commentMoreElementEventHandler = commentMoreElementEvent();
+                
+                commentMoreElement.addEventListener('click', () => {
+                  commentMoreElementEventHandler();
                 });
-              })
+                
+              } else {
+                commentsCollection.forEach(comment => {
+                  setNewDomComment({
+                    parentPost: newTweetPost.domElement,
+                    comment: comment.data(),
+                    method: 'secondChild'
+                  });
+                })
+              }
+              
             }
             
           })

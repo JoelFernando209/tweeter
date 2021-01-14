@@ -1,6 +1,8 @@
 .tweet {
   width: 100%;
 
+  position: relative;
+
   background-color: white;
   border-radius: 2rem;
   padding: 1.5rem;
@@ -133,6 +135,22 @@
       }
     }
     
+  }
+  
+  &__commentsWarning {
+    display: inline-block;
+    margin-top: 1rem;
+    text-align: center;
+    color:  $color-primary;
+    cursor: pointer;
+    
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    &:hover {
+      text-decoration: underline;
+    }
   }
   
   &__replyConfig {

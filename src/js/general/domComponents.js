@@ -1,12 +1,24 @@
 import { createNewGalleryElement } from '../tweet/galleryTweet.js';
 import { generateNewId } from './generalFunc.js';
 import { formatHashtag } from './formatComponents.js';
+import { getProfilePhoto } from '../auth/authComponents.js';
 
 export const iterateQuerySelectorAll = (query, func, params) => {
   query.forEach(element => {
     func(element, ...params)
   })
 }
+
+export const setCommentsBlock = (newTweetPost) => {
+  const commentsBlock = newTweetPost.domElement.querySelector('.post__comments');
+  const commentMoreElement = document.createElement('div');
+  commentMoreElement.className = 'tweet__commentsWarning';
+  commentMoreElement.innerHTML = 'See more comments...';
+  
+  commentsBlock.appendChild(commentMoreElement);
+  
+  return commentMoreElement;
+};
 
 export const changeColorWhenClick = (element, defaultColor, newColor, path, lastPath) => {
   let eventHandler = false;
@@ -127,7 +139,7 @@ export const toggleElementClick = (clicker, toggleElement) => {
   }
 }
 
-export const setNewDomComment = ({ parentPost, comment }) => {
+export const setNewDomComment = ({ parentPost, comment, method }) => {
   const commentBlock = parentPost.querySelector('.post__comments');
   const commentInputChild = commentBlock.querySelector('.post__postComment--inputComment');
   
@@ -162,7 +174,12 @@ export const setNewDomComment = ({ parentPost, comment }) => {
   
   // Put as second child
   
-  commentBlock.insertBefore(newComment, commentInputChild.nextSibling);
+  if(method === 'secondChild') {
+    commentBlock.insertBefore(newComment, commentInputChild.nextSibling);
+  } else if(method === 'append') {
+    commentBlock.appendChild(newComment);
+  }
+  
   
   return {
     comment
@@ -243,7 +260,7 @@ export const createNewTweetElement = ({ tweet, tweetId }) => {
     
     <div class='post__comments'>
       <div class='post__postComment post__postComment--inputComment'>
-        <img src='./img/default-profile.jpg' class='post__commentPicture' alt='Profile Picture' />
+        <img src='${getProfilePhoto()}' class='post__commentPicture' alt='Profile Picture' />
         
         <label class='post__commentInputBox' for='inputComment-${idTweet}'>
           

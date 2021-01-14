@@ -811,6 +811,7 @@ body {
 
 .tweet {
   width: 100%;
+  position: relative;
   background-color: white;
   border-radius: 2rem;
   padding: 1.5rem;
@@ -910,6 +911,17 @@ body {
         -webkit-mask-size: cover; }
         .tweet__addImg:hover {
           background-color: #115bbf; } }
+  .tweet__commentsWarning {
+    display: inline-block;
+    margin-top: 1rem;
+    text-align: center;
+    color: #2F80ED;
+    cursor: pointer;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%); }
+    .tweet__commentsWarning:hover {
+      text-decoration: underline; }
   .tweet__replyConfig {
     position: relative;
     display: flex;

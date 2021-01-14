@@ -80,7 +80,7 @@ export const setCommentEvent = ({ domElement, arrImg, parentToPrependClass, twee
                })
                
       
-      setNewDomComment({ parentPost: domElement, comment: objData});
+      setNewDomComment({ parentPost: domElement, comment: objData, method: 'secondChild' });
       
     }
     

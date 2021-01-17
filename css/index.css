@@ -435,6 +435,145 @@ body {
       .changeProfile__submit {
         width: 40%; } }
 
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+  .profile__banner {
+    width: 100%;
+    height: 30rem;
+    object-fit: cover;
+    object-position: center; }
+  .profile__content {
+    width: 70%;
+    transform: translateY(-6rem);
+    background-color: transparent;
+    display: flex;
+    flex-direction: column; }
+    @media only screen and (max-width: 62.5em) {
+      .profile__content {
+        width: 80%; } }
+    @media only screen and (max-width: 43.75em) {
+      .profile__content {
+        width: 95%; } }
+  .profile__header {
+    width: 100%;
+    background-color: white;
+    border-radius: 2rem;
+    height: 12rem;
+    padding: 1.5rem 3rem;
+    display: flex;
+    margin-bottom: 3rem; }
+    @media only screen and (max-width: 31.25em) {
+      .profile__header {
+        flex-direction: column;
+        align-items: center;
+        height: auto; } }
+  .profile__headerImgBox {
+    width: 10.5rem;
+    height: 10.5rem;
+    border: 5px solid white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transform: translateY(-5rem);
+    margin-right: 2rem; }
+    @media only screen and (max-width: 31.25em) {
+      .profile__headerImgBox {
+        margin-right: 0;
+        transform: translateY(-9rem); } }
+  .profile__headerImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; }
+  .profile__headerData {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; }
+    @media only screen and (max-width: 31.25em) {
+      .profile__headerData {
+        align-items: center;
+        text-align: center; } }
+  .profile__headerDataStats {
+    display: flex; }
+    @media only screen and (max-width: 31.25em) {
+      .profile__headerDataStats {
+        flex-direction: column;
+        justify-content: center;
+        margin-bottom: 2rem;
+        margin-top: -7.5rem; } }
+  .profile__headerDataName {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-right: 2rem; }
+    @media only screen and (max-width: 31.25em) {
+      .profile__headerDataName {
+        margin-bottom: 1rem;
+        margin-right: 0;
+        font-size: 2.5rem; } }
+  .profile__headerDataFollow {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem; }
+  .profile__headerDataFollowing {
+    margin-right: 2rem; }
+    @media only screen and (max-width: 31.25em) {
+      .profile__headerDataFollowing {
+        margin-right: 3rem; } }
+  .profile__headerBio {
+    opacity: .6;
+    font-size: 1.7rem;
+    width: 90%; }
+    @media only screen and (max-width: 31.25em) {
+      .profile__headerBio {
+        margin-bottom: 2rem; } }
+  .profile btn.profile__headerFollowBtn {
+    border-radius: 1rem; }
+  .profile__headerFollowBtn {
+    margin-left: auto;
+    height: 4rem;
+    width: 12rem;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    @media only screen and (max-width: 31.25em) {
+      .profile__headerFollowBtn {
+        margin-left: 0; } }
+  .profile__headerFollowBtnIcon {
+    width: 2rem;
+    height: 2rem;
+    margin-right: 1rem; }
+  .profile__main {
+    display: flex;
+    align-items: start; }
+    @media only screen and (max-width: 31.25em) {
+      .profile__main {
+        flex-direction: column; } }
+  .profile__aside {
+    width: 20%;
+    margin-right: 3rem;
+    background-color: white;
+    border-radius: 2rem;
+    padding: 2rem 0; }
+    @media only screen and (max-width: 31.25em) {
+      .profile__aside {
+        width: 100%;
+        margin-bottom: 3rem;
+        margin-right: 0; } }
+  .profile__asideList {
+    list-style: none; }
+  .profile__asideItem {
+    padding: 1rem 1.5rem;
+    cursor: pointer; }
+    .profile__asideItem:hover {
+      color: #2F80ED; }
+    .profile__asideItem:not(:last-child) {
+      margin-bottom: 1.5rem; }
+  .profile__posts {
+    width: 80%; }
+    @media only screen and (max-width: 31.25em) {
+      .profile__posts {
+        width: 100%; } }
+
 .auth {
   max-width: 45rem;
   border: 1px solid rgba(0, 0, 0, 0.3);

@@ -1,43 +1,118 @@
+$borderRadiusGrid: 2rem;
+
 .profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   
   &__banner {
-    
+    width: 100%;
+    height: 30rem;
+    object-fit: cover;
+    object-position: center;
   }
   
   &__content {
+    width: 70%;
+    transform: translateY(-6rem);
+    background-color: transparent;
     
+    display: flex;
+    flex-direction: column;
+    
+    @include respond(laptop) {
+        width: 80%;
+    }
+    
+    @include respond(tablet) {
+        width: 95%;
+    }
   }
   
   &__header {
+    width: 100%;
+    background-color: white;
+    border-radius: $borderRadiusGrid;
+    height: 12rem;
+    padding: 1.5rem 3rem;
     
+    display: flex;
+    margin-bottom: 3rem;
+    
+    @include respond(phone) {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
   }
   
   &__headerImgBox {
+    width: 10.5rem;
+    height: 10.5rem;
+    border: 5px solid white;
+    border-radius: $borderRadius-profilePicture;
+    overflow: hidden;
+    transform: translateY(-5rem);
+    margin-right: 2rem;
     
+    @include respond(phone) {
+        margin-right: 0;
+        transform: translateY(-9rem);
+    }
   }
   
   &__headerImg {
-    
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   
   &__headerData {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     
+    @include respond(phone) {
+        align-items: center;
+        text-align: center;
+    }
   }
   
   &__headerDataStats {
+    display: flex;
     
+    @include respond(phone) {
+        flex-direction: column;
+        justify-content: center;
+        margin-bottom: 2rem;
+        margin-top: -7.5rem;
+    }
   }
   
   &__headerDataName {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-right: 2rem;
     
+    @include respond(phone) {
+        margin-bottom: 1rem;
+        margin-right: 0;
+        font-size: 2.5rem;
+    }
   }
   
   &__headerDataFollow {
-    
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
   }
   
   &__headerDataFollowing {
+    margin-right: 2rem;
     
+    @include respond(phone) {
+        margin-right: 3rem;
+    }
   }
   
   &__headerDataFollowers {
@@ -45,30 +120,84 @@
   }
   
   &__headerBio {
+    opacity: .6;
+    font-size: 1.7rem;
+    width: 90%;
     
+    @include respond(phone) {
+        margin-bottom: 2rem;
+    }
+  }
+  
+  & btn.profile__headerFollowBtn {
+    border-radius: 1rem;
   }
   
   &__headerFollowBtn {
+    margin-left: auto;
+    height: 4rem;
+    width: 12rem;
     
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    @include respond(phone) {
+        margin-left: 0;
+    }
   }
   
   &__headerFollowBtnIcon {
+    width: 2rem;
+    height: 2rem;
+    margin-right: 1rem;
+  }
+  
+  &__main {
+    display: flex;
+    align-items: start;
     
+    @include respond(phone) {
+        flex-direction: column;
+    }
   }
   
   &__aside {
+    width: 20%;
+    margin-right: 3rem;
+    background-color: white;
+    border-radius: $borderRadiusGrid;
+    padding: 2rem 0;
     
+    @include respond(phone) {
+        width: 100%;
+        margin-bottom: 3rem;
+        margin-right: 0;
+    }
   }
   
   &__asideList {
-    
+    list-style: none;
   }
   
   &__asideItem {
+    padding: 1rem 1.5rem;
+    cursor: pointer;
     
+    &:hover {
+        color: $color-primary;
+    }
+    
+    &:not(:last-child) {
+        margin-bottom: 1.5rem;
+    }
   }
   
   &__posts {
+    width: 80%;
     
+    @include respond(phone) {
+        width: 100%;
+    }
   }
 }

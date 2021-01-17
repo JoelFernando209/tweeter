@@ -95,8 +95,10 @@
                 </ul>
               </div>
               
-              <div class='profile__posts'>
-                <div class='post'>
+              <div class='profile__posts dashboard__tweetPosts'>
+                <div class='dashboard__tweetPostsLoading'></div>
+                  
+                <!--<div class='post'>
                   <div class='post__profile'>
                     <img src='./img/default-profile.jpg' alt='Profile picture' class='post__profileImg' />
                     
@@ -167,81 +169,7 @@
                       <div class='post__postCommentIcon'></div>
                     </div>
                   </div>
-                </div>
-                
-                <div class='post'>
-                  <div class='post__profile'>
-                    <img src='./img/default-profile.jpg' alt='Profile picture' class='post__profileImg' />
-                    
-                    <div class='post__profileInfo'>
-                      <span class='important-text post__name'>JoelFernando209</span>
-                      <span class='post__date'>27/01/2020</span>
-                    </div>
-                  </div>
-                  
-                  <div class='post__tweetText'>
-                    Holaaaaaa
-                  </div>
-                  
-                  <div class='${tweet.photoTweets.length > 0 ? `post__tweetImg-box ${gridClass}`: ''}'>
-                    
-                  </div>
-                  
-                  <div class='post__data'>
-                    <span class='post__dataItem post__dataComments'>449 Comments</span>
-                    <span class='post__dataItem post__dataRetweets'>59k Retweets</span>
-                    <span class='post__dataItem post__dataSaved'>234 saved</span>
-                  </div>
-                  
-                  <div class='post__options'>
-                    <div class='post__optionsItem post__optionsItem--comment'>
-                      <img src="./img/comment-icon.svg" class='post__optionsIcon'>
-                      Comment
-                    </div>
-                    
-                    <div class='post__optionsItem post__optionsItem--retweet'>
-                      <img src="./img/retweet-icon.svg" class='post__optionsIcon'>
-                      <div class='post__optionsItemText'>
-                        <span class='post__optionsItemTextItem post__optionsItemTextItem--first'>Retweeted</span>
-                        <span class='post__optionsItemTextItem'>Retweet</span>
-                      </div>
-                    </div>
-                    
-                    <div class='post__optionsItem post__optionsItem--like'>
-                      <img src="./img/like-icon.svg" class='post__optionsIcon'>
-                      <div class='post__optionsItemText'>
-                        <span class='post__optionsItemTextItem post__optionsItemTextItem--first'>Liked</span>
-                        <span class='post__optionsItemTextItem'>Like</span>
-                      </div>
-                    </div>
-                    
-                    <div class='post__optionsItem post__optionsItem--save'>
-                      <img src="./img/save-icon.svg" class='post__optionsIcon'>
-                      <div class='post__optionsItemText'>
-                        <span class='post__optionsItemTextItem post__optionsItemTextItem--first'>Saved</span>
-                        <span class='post__optionsItemTextItem'>Save</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class='post__comments'>
-                    <div class='post__postComment post__postComment--inputComment'>
-                      <img src='./img/default-profile.jpg' class='post__commentPicture' alt='Profile Picture' />
-                      
-                      <label class='post__commentInputBox' for='inputComment-${idTweet}'>
-                        
-                        <img src='img/add-image.svg' alt='addImage' class='post__commentInputIcon' title='Add an image to your comment'/>
-                        
-                        <img src='img/send-icon.svg' alt='Send' class='post__commentSendIcon' title='Send your comment' />
-                        
-                        <input type='text' class='post__postCommentInput' id='inputComment-${idTweet}' placeholder='Tweet your reply' />
-                      </label>
-                      
-                      <div class='post__postCommentIcon'></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                </div>-->
           </div>
           
         </div>
@@ -249,5 +177,21 @@
       </main>
     </div>
     
+    <!--Firebase scripts-->
+    
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-firestore.js"></script>
+
+    <!--Normal scripts-->
+    
+    <script src='./src/js/firebaseController.js' type='module'></script>
+    <script src='./src/js/profile.js' type='module'></script>
+    
+    <!--Photoswipe Addon-->
+    
+    <script src='./src/assets/photoswipe/photoswipe.min.js'></script>
+    <script src='./src/assets/photoswipe/photoswipe-ui-default.min.js'></script>
   </body>
 </html>

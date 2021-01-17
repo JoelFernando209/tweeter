@@ -569,7 +569,8 @@ body {
     .profile__asideItem:not(:last-child) {
       margin-bottom: 1.5rem; }
   .profile__posts {
-    width: 80%; }
+    width: 80%;
+    position: relative; }
     @media only screen and (max-width: 31.25em) {
       .profile__posts {
         width: 100%; } }

@@ -195,6 +195,7 @@ $borderRadiusGrid: 2rem;
   
   &__posts {
     width: 80%;
+    position: relative;
     
     @include respond(phone) {
         width: 100%;

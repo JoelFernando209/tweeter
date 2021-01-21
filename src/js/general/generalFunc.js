@@ -44,7 +44,7 @@ export const formatDateTweet = ({ date }) => {
   return `${day} ${month} at ${hour}:${minute} ${year}`;
 };
 
-export const hideOnClickOutside = elemesnt => {
+export const hideOnClickOutside = element => {
   const outsideClickListener = event => {
     if (!element.contains(event.target)) {
       element.style.opacity = '0';

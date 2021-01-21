@@ -196,7 +196,6 @@ body {
     grid-row: 1 / 2; }
   .dashboard__main {
     grid-row: 3 / 4;
-    position: relative;
     display: flex;
     justify-content: center; }
   .dashboard__gridMain {
@@ -446,7 +445,7 @@ body {
     object-position: center; }
   .profile__content {
     width: 70%;
-    transform: translateY(-6rem);
+    margin-top: -6rem;
     background-color: transparent;
     display: flex;
     flex-direction: column; }
@@ -543,13 +542,13 @@ body {
     height: 2rem;
     margin-right: 1rem; }
   .profile__main {
-    display: flex;
-    align-items: start; }
+    display: flex; }
     @media only screen and (max-width: 31.25em) {
       .profile__main {
         flex-direction: column; } }
   .profile__aside {
     width: 20%;
+    height: 24rem;
     margin-right: 3rem;
     background-color: white;
     border-radius: 2rem;
@@ -569,8 +568,7 @@ body {
     .profile__asideItem:not(:last-child) {
       margin-bottom: 1.5rem; }
   .profile__posts {
-    width: 80%;
-    position: relative; }
+    width: 80%; }
     @media only screen and (max-width: 31.25em) {
       .profile__posts {
         width: 100%; } }

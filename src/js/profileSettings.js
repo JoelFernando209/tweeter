@@ -154,7 +154,7 @@ const setDefaultValueToInput = () => {
 // Change views.
 
 const infoProfileEdit = document.querySelector('.infoProfile__edit');
-const infoProfile = document.querySelector('.infoProfile');s
+const infoProfile = document.querySelector('.infoProfile');
 
 infoProfileEdit.addEventListener('click', () => {
   infoProfile.style.display = 'none';
@@ -276,6 +276,7 @@ changeProfileForm.addEventListener('submit', e => {
   const nameValue = changeProfileInputName.value.trim();
   const bioValue = changeProfileTextArea.value;
   const phoneValue = changeProfileInputPhone.value.replace(/ /g, '');
+  const changeProfileErr = document.querySelector('.changeProfile__err');
 
   if(nameValue.length > 0 && nameValue.length <= 50) {
     changeProfileErr.innerHTML = '';

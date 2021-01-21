@@ -14,7 +14,7 @@ $borderRadiusGrid: 2rem;
   
   &__content {
     width: 70%;
-    transform: translateY(-6rem);
+    margin-top: -6rem;
     background-color: transparent;
     
     display: flex;
@@ -155,8 +155,7 @@ $borderRadiusGrid: 2rem;
   
   &__main {
     display: flex;
-    align-items: start;
-    
+
     @include respond(phone) {
         flex-direction: column;
     }
@@ -164,6 +163,7 @@ $borderRadiusGrid: 2rem;
   
   &__aside {
     width: 20%;
+    height: 24rem;
     margin-right: 3rem;
     background-color: white;
     border-radius: $borderRadiusGrid;
@@ -195,8 +195,7 @@ $borderRadiusGrid: 2rem;
   
   &__posts {
     width: 80%;
-    position: relative;
-    
+
     @include respond(phone) {
         width: 100%;
     }

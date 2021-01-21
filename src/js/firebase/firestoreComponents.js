@@ -17,6 +17,12 @@ export const setDocWithKey = ({ collectionTarget, keyDoc, docContent, configDoc 
   )
 };
 
+export const getUserData = (uid) => {
+  return firestore.collection('userData')
+    .doc(uid)
+    .get()
+};
+
 export const uploadTweet = ({ tweetVal, catchFunc, catchErrElement }) => {
   if(userVerified()) {
     const tweetObj = {
@@ -27,6 +33,7 @@ export const uploadTweet = ({ tweetVal, catchFunc, catchErrElement }) => {
       date: formatDateTweet({
         date: new Date()
       }),
+      timestamp: new Date(),
       profilePhoto: getProfilePhoto(),
       photoTweets: photoTweets,
       statusVisibilityTweets

@@ -277,7 +277,8 @@ addImgInput.addEventListener('change', event => {
               fileName: name,
               errElement,
             });
-            createImg({ url, parentClass, errElement, elementClass: 'tweet__imagesItemBox' });
+            
+            const imgItem = createImg({ url, parentClass, errElement, elementClass: 'tweet__imagesItemBox' });
           },
           parentClass: '.tweet__images'
         }),

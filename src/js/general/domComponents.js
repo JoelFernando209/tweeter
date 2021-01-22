@@ -2,6 +2,7 @@ import { createNewGalleryElement } from '../tweet/galleryTweet.js';
 import { generateNewId } from './generalFunc.js';
 import { formatHashtag } from './formatComponents.js';
 import { getProfilePhoto } from '../auth/authComponents.js';
+import { setCancelItemEvent } from '../tweet/tweetLogicComponents.js';
 
 export const iterateQuerySelectorAll = (query, func, params) => {
   query.forEach(element => {
@@ -61,7 +62,11 @@ export const createImg = ({ url, parentClass, errElement, elementClass }) => {
         <img class="tweet__imagesItem" src="${urlTarget}">
         
         <div class='tweet__imagesItemLoading ds-none'></div>
+        
+        <img src='img/cancel-circle-icon.svg' alt='Cancel' class='tweet__imagesItemCancel' />
       `;
+      
+      setCancelItemEvent(imgItemBox);
     })
     .catch(err => {
       errElement.innerHTML = err.message;

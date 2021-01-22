@@ -435,6 +435,7 @@ body {
         width: 40%; } }
 
 .profile {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center; }
@@ -662,6 +663,16 @@ body {
     opacity: .4;
     width: 3rem;
     height: 3rem; }
+
+.loadingParent {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: white;
+  z-index: 500;
+  display: none; }
 
 .loading {
   display: none;
@@ -967,6 +978,7 @@ body {
     margin-bottom: 2rem;
     height: 28rem; }
   .tweet__imagesItemBox {
+    position: relative;
     width: 100%;
     height: 100%;
     cursor: pointer;
@@ -977,6 +989,17 @@ body {
     object-fit: cover; }
     .tweet__imagesItem:hover {
       filter: brightness(90%); }
+  .tweet__imagesItemCancel {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 3rem;
+    height: 3rem;
+    opacity: .6;
+    cursor: pointer;
+    transition: all .3s; }
+    .tweet__imagesItemCancel:hover {
+      opacity: 1; }
   .tweet__imagesItemLoading {
     position: relative;
     height: 100%;
@@ -1006,6 +1029,7 @@ body {
     font-size: 1.2rem;
     opacity: .8; }
   .tweet__profileImg {
+    cursor: pointer;
     width: 3.5rem;
     height: 3.5rem;
     margin-right: .5rem;

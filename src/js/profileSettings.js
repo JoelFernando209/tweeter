@@ -5,7 +5,7 @@ import { setInputLimit } from './components/setInputLimit.js';
 import { actualUrl } from './actualUrl.js';
 import { uploadProfileImg, deleteAllFilesFromFolder, createRef, imgGetDownloadURL } from './firebase/storageComponents.js';
 import { getUid, updatePhotoURL } from './auth/authComponents.js';
-import { setDocWithKey } from './firebase/firestoreComponents.js';
+import { setDocWithKey, changeTweetsProfile, changeTweetsName } from './firebase/firestoreComponents.js';
 
 const headerParentProfile = document.querySelector('.header__profile');
 
@@ -199,6 +199,12 @@ changeProfilePhotoBtn.addEventListener('change', e => {
               headerProfile.setAttribute('src', urlRes)
               
               changeProfilePhotoLoading.style.height = '0';
+              
+              changeTweetsProfile(urlRes);
+              
+              firebase.firestore().collection('userData').doc(getUid()).set({
+                photoUrl: urlRes
+              }, { merge: true })
             })
             .catch(err => {
               changeProfileErr.innerHTML = err.message;
@@ -246,6 +252,10 @@ changeProfileBannerBtn.addEventListener('change', e => {
                 changeProfileErr.innerHTML = err.message;
               })
               
+              firebase.firestore().collection('userData').doc(getUid()).set({
+                bannerUrl: url
+              }, { merge: true })
+              
               changeProfileBanner.setAttribute('src', url);
               
               changeProfileBannerLoading.style.height = '0';
@@ -286,6 +296,24 @@ changeProfileForm.addEventListener('submit', e => {
     })
     .then(() => {
       headerName.innerHTML = user.displayName;
+      
+      changeTweetsName(nameValue);
+      
+      firebase.firestore().collection('userData').doc(user.uid).set({
+        bio: bioValue,
+        phone: phoneValue,
+        name: nameValue,
+        photoUrl: user.photoURL,
+        uid: user.uid
+      }, { merge: true })
+      .then(() => {
+        changeProfileErr.style.color = 'green';
+        changeProfileErr.innerHTML = 'Your account has been updated succesfully.';
+      })
+      .catch(err => {
+        changeProfileErr.style.color = 'red';
+        changeProfileErr.innerHTML = err.message;
+      })
     })
     .catch(err => {
       changeProfileErr.style.color = 'red';
@@ -295,22 +323,6 @@ changeProfileForm.addEventListener('submit', e => {
     changeProfileErr.innerHTML = 'Please put a valid name.';
     return;
   }
-  
-  firebase.firestore().collection('userData').doc(user.uid).set({
-    bio: bioValue,
-    phone: phoneValue,
-    name: user.displayName,
-    photoUrl: user.photoURL,
-    uid: user.uid
-  }, { merge: true })
-  .then(() => {
-    changeProfileErr.style.color = 'green';
-    changeProfileErr.innerHTML = 'Your account has been updated succesfully.';
-  })
-  .catch(err => {
-    changeProfileErr.style.color = 'red';
-    changeProfileErr.innerHTML = err.message;
-  })
 })
 
 // Make when popup is clicked outside it disappears the popup

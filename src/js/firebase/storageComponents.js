@@ -8,7 +8,13 @@ export const createRef = ({ pathRef, errElement, fileToUpload }) => ({
 
 export const createTask = ({ ref, file }) => ref.put(file);
 
-export const imgGetDownloadURL = ({ task }) => task.ref_.getDownloadURL();
+export const imgGetDownloadURL = ({ task }) => {
+  if(task.ref_) {
+    return task.ref_.getDownloadURL()
+  } else {
+    return task.ref.getDownloadURL()
+  }
+};
 
 export const getDownloadPercentage = ({ snapshot }) => (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
@@ -45,7 +51,7 @@ export const uploadNormalImg = ({ endFunc, parentClass }) => ({ ref, errElement,
   })
   .catch(err => {
     errElement.innerHTML = err.message;
-    console.log(err.message)
+    console.log(err)
   })
   
   return taskImg;

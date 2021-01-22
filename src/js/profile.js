@@ -8,6 +8,10 @@ let wasSignedIn = false;
 
 let uidUser;
 
+const loadingParent = document.querySelector('.loadingParent');
+const loading = document.querySelector('.loading');
+const header = document.querySelector('.header');
+
 if(location.search) {
   uidUser = location.search.replace('?uid=', '');
 }
@@ -17,6 +21,9 @@ firebase.auth().onAuthStateChanged(user => {
     uidUser = user.uid;
   }
   
+  loadingParent.style.display = 'block';
+  loading.style.display = 'block';
+
   const headerName = document.querySelector('.header__name');
   const headerProfile = document.querySelector('.header__img-profile');
   const profileHeaderImg = document.querySelector('.profile__headerImg');
@@ -58,6 +65,10 @@ firebase.auth().onAuthStateChanged(user => {
             profileHeaderImg.setAttribute('src', 'img/default-profile.jpg');
           }
         }
+      })
+      .then(() => {
+        loadingParent.style.display = 'none';
+        loading.style.display = 'none';
       })
     
     firebase.firestore().collection('tweets')

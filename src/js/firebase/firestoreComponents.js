@@ -17,6 +17,34 @@ export const setDocWithKey = ({ collectionTarget, keyDoc, docContent, configDoc 
   )
 };
 
+export const changeTweetsName = (newName) => {
+  firestore
+    .collection('tweets')
+    .where('uid', '==', getUid())
+    .get()
+    .then(collTweets => {
+      collTweets.forEach(doc => {
+        doc.ref.update({
+          author: newName
+        })
+      })
+    })
+};
+
+export const changeTweetsProfile = (profileUrl) => {
+  firestore
+    .collection('tweets')
+    .where('uid', '==', getUid())
+    .get()
+    .then(collTweets => {
+      collTweets.forEach(doc => {
+        doc.ref.update({
+          profilePhoto: profileUrl
+        })
+      })
+    })
+};
+
 export const getUserData = (uid) => {
   return firestore.collection('userData')
     .doc(uid)
@@ -118,6 +146,12 @@ export const setPhotoTweet = ({ url, fileName, errElement }) => {
 }
 
 export const getPhotoTweets = () => photoTweets;
+
+export const setNewPhotoTweets = (newPhotoTweets) => {
+  photoTweets = newPhotoTweets;
+  
+  return photoTweets;
+};
 
 export const resetPhotoTweet = () => {
   photoTweets = [];

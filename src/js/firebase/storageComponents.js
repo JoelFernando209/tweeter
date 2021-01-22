@@ -8,7 +8,7 @@ export const createRef = ({ pathRef, errElement, fileToUpload }) => ({
 
 export const createTask = ({ ref, file }) => ref.put(file);
 
-export const imgGetDownloadURL = ({ task }) => task.ref.getDownloadURL();
+export const imgGetDownloadURL = ({ task }) => task.ref_.getDownloadURL();
 
 export const getDownloadPercentage = ({ snapshot }) => (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
@@ -59,12 +59,12 @@ export const uploadProfileImg = ({ loadingElement, endFunc }) => ({ ref, errElem
   });
   
   taskImg.on('state_changed', snapshot => {
-    const downloadPercentage = getDownloadPercentage({ snapshot });
-    loadingElement.style.height = downloadPercentage+'%';
-  },
-  err => {
-    errElement.innerHTML = err.message;
-  },
-  endFunc(taskImg)
+      const downloadPercentage = getDownloadPercentage({ snapshot });
+      loadingElement.style.height = downloadPercentage+'%';
+    },
+    err => {
+      errElement.innerHTML = err.message;
+    },
+    endFunc(taskImg)
   )
 }

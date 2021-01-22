@@ -276,6 +276,12 @@ export const createNewTweetElement = ({ tweet, tweetId }) => {
     </div>
   `;
   
+  const postProfile = newPost.querySelector('.post__profile');
+  
+  postProfile.addEventListener('click', () => {
+    window.location.replace('/profile.html?uid='+ tweet.uid);
+  });
+  
   return {
     domElement: newPost,
     arrImg: tweet.photoTweets,

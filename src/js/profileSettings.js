@@ -189,14 +189,14 @@ changeProfilePhotoBtn.addEventListener('change', e => {
         loadingElement: changeProfilePhotoLoading,
         endFunc: taskImg => () => {
           imgGetDownloadURL({ task: taskImg })
-            .then(url => {
-              updatePhotoURL({ photoURL: url })
+            .then(urlRes => {
+              updatePhotoURL({ photoURL: urlRes })
               .catch(err => {
                 changeProfileErr.innerHTML = err.message;
               })
               
-              changeProfilePhoto.setAttribute('src', url);
-              headerProfile.setAttribute('src', url)
+              changeProfilePhoto.setAttribute('src', urlRes);
+              headerProfile.setAttribute('src', urlRes)
               
               changeProfilePhotoLoading.style.height = '0';
             })
@@ -299,6 +299,8 @@ changeProfileForm.addEventListener('submit', e => {
   firebase.firestore().collection('userData').doc(user.uid).set({
     bio: bioValue,
     phone: phoneValue,
+    name: user.displayName,
+    photoUrl: user.photoURL,
     uid: user.uid
   }, { merge: true })
   .then(() => {

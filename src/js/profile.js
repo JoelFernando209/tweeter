@@ -6,37 +6,62 @@ import { setCommentEvent, getUserData } from './firebase/firestoreComponents.js'
 
 let wasSignedIn = false;
 
+let uidUser;
+
+if(location.search) {
+  uidUser = location.search.replace('?uid=', '');
+}
+
 firebase.auth().onAuthStateChanged(user => {
-  if(user && user.emailVerified) {
-    const headerName = document.querySelector('.header__name');
-    const headerProfile = document.querySelector('.header__img-profile');
-    const profileHeaderImg = document.querySelector('.profile__headerImg');
-    const profileName = document.querySelector('.profile__headerDataName');
+  if(!uidUser) {
+    uidUser = user.uid;
+  }
   
+  const headerName = document.querySelector('.header__name');
+  const headerProfile = document.querySelector('.header__img-profile');
+  const profileHeaderImg = document.querySelector('.profile__headerImg');
+  const profileName = document.querySelector('.profile__headerDataName');
+  const headerBio = document.querySelector('.profile__headerBio')
+  
+  if(user) {
     headerName.innerHTML = formatName(user.displayName);
-    profileName.innerHTML = formatName(user.displayName);
-    
-    getUserData(user.uid)
-      .then(doc => {
-        const headerBio = document.querySelector('.profile__headerBio')
-        
-        if(doc.exists && doc.data().bio) {
-          headerBio.innerHTML = doc.data().bio;
-        } else {
-          headerBio.innerHTML = "This user doesn't have a biography :(";
-        }
-      })
     
     if(user.photoURL) {
       headerProfile.setAttribute('src', user.photoURL);
-      profileHeaderImg.setAttribute('src', user.photoURL);
     } else {
       headerProfile.setAttribute('src', 'img/default-profile.jpg')
-      profileHeaderImg.setAttribute('src', 'img/default-profile.jpg');
     }
+  }
+  
+  
+  if(user && user.emailVerified) {
+    getUserData(uidUser)
+      .then(doc => {
+        if(doc.exists) {
+          profileName.innerHTML = formatName(doc.data().name);
+          
+          if(doc.data().bio) {
+            headerBio.innerHTML = doc.data().bio;
+            
+            if(doc.data().bannerUrl) {
+              const headerBanner = document.querySelector('.profile__banner');
+              
+              headerBanner.setAttribute('src', doc.data().bannerUrl);
+            }
+          } else {
+            headerBio.innerHTML = "This user doesn't have a biography :(";
+          }
+          
+          if(doc.data().photoUrl) {
+            profileHeaderImg.setAttribute('src', doc.data().photoUrl);
+          } else {
+            profileHeaderImg.setAttribute('src', 'img/default-profile.jpg');
+          }
+        }
+      })
     
     firebase.firestore().collection('tweets')
-    .where('uid', '==', user.uid)
+    .where('uid', '==', uidUser)
     .orderBy('timestamp', 'asc')
     .onSnapshot(tweetsCollection => {
       document.querySelector('.dashboard__tweetPostsLoading').style.display = 'none';
@@ -151,6 +176,7 @@ firebase.auth().onAuthStateChanged(user => {
 const headerParentProfile = document.querySelector('.header__profile');
 const profileMenu = document.querySelector('.profile__menu');
 const headerArrow = document.querySelector('.header__arrow');
+const signOutMenu = document.querySelector('.menu__item--sign-out');
 
 const headerParentProfileEvent = profileMenuHandler({
   profileMenu,
@@ -158,3 +184,9 @@ const headerParentProfileEvent = profileMenuHandler({
 });
 
 headerParentProfile.addEventListener('click', headerParentProfileEvent);
+
+signOutMenu.addEventListener('click', () => {
+  firebase.auth().signOut()
+  .then(() => wasSignedIn = true)
+  .catch(err => console.log(err.message));
+})

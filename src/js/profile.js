@@ -1,28 +1,45 @@
 import { formatName } from './general/generalFunc.js';
-import { profileMenuHandler, createNewTweetElement, prependChild, setNewDomComment } from './general/domComponents.js';
+import { profileMenuHandler, createNewTweetElement, prependChild, setNewDomComment, setTweetsSeeMoreBlock, appendChild } from './general/domComponents.js';
 import { createGallery, setEventGallery, createNewGalleryElement } from './tweet/galleryTweet.js';
 import { setOptionEventsTweets } from './tweet/tweetStyleComponents.js';
 import { setCommentEvent, getUserData } from './firebase/firestoreComponents.js';
+import { divideArrInEqualParts } from './tweet/tweetLogicComponents.js';
 
 let wasSignedIn = false;
 
 let uidUser;
 
-const loadingParent = document.querySelector('.loadingParent');
-const loading = document.querySelector('.loading');
 const header = document.querySelector('.header');
+const tweetSeeMore = document.querySelector('.dashboard__tweetSeeMore');
 
 if(location.search) {
   uidUser = location.search.replace('?uid=', '');
+}
+
+const setTweetElement = (tweet, method) => {
+  const newTweetPost = createNewTweetElement({ tweet: tweet.data(), tweetId: tweet.id });
+        
+  if(tweet.data().photoTweets.length > 0) {
+    const galleryTweet = createGallery('.post__tweetImg')(newTweetPost);
+    
+    setEventGallery(galleryTweet);
+  }
+  
+  if(method === 'prepend') {
+    prependChild(newTweetPost);
+  } else {
+    appendChild(newTweetPost)
+  }
+  
+  setOptionEventsTweets();
+  
+  setCommentEvent(newTweetPost);
 }
 
 firebase.auth().onAuthStateChanged(user => {
   if(!uidUser) {
     uidUser = user.uid;
   }
-  
-  loadingParent.style.display = 'block';
-  loading.style.display = 'block';
 
   const headerName = document.querySelector('.header__name');
   const headerProfile = document.querySelector('.header__img-profile');
@@ -66,10 +83,6 @@ firebase.auth().onAuthStateChanged(user => {
           }
         }
       })
-      .then(() => {
-        loadingParent.style.display = 'none';
-        loading.style.display = 'none';
-      })
     
     firebase.firestore().collection('tweets')
     .where('uid', '==', uidUser)
@@ -77,20 +90,10 @@ firebase.auth().onAuthStateChanged(user => {
     .onSnapshot(tweetsCollection => {
       document.querySelector('.dashboard__tweetPostsLoading').style.display = 'none';
       
-      tweetsCollection.forEach((tweet, index) => {
-        const newTweetPost = createNewTweetElement({ tweet: tweet.data(), tweetId: tweet.id });
-        
-        if(tweet.data().photoTweets.length > 0) {
-          const galleryTweet = createGallery('.post__tweetImg')(newTweetPost);
-          
-          setEventGallery(galleryTweet);
-        }
-        
-        prependChild(newTweetPost);
-        
-        setOptionEventsTweets();
-        
-        setCommentEvent(newTweetPost);
+      const dividedTweets = divideArrInEqualParts(tweetsCollection.docs, 8);
+      
+      dividedTweets[0].forEach((tweet, index) => {
+        setTweetElement(tweet, 'prepend')
         
         firebase.firestore().collection('tweets').doc(tweet.id)
           .collection('comments')
@@ -160,6 +163,38 @@ firebase.auth().onAuthStateChanged(user => {
             
           })
       });
+      
+      let seeMoreTweetsEvent = setTweetsSeeMoreBlock();
+        
+      const seeMoreTweetsElementEvent = () => {
+        let currentIndex = 1;
+        
+        return () => {
+          if(dividedTweets[currentIndex]) {
+            dividedTweets[currentIndex].forEach(tweet => {
+              setTweetElement(tweet, 'append')
+            })
+            
+            currentIndex++;
+            
+            seeMoreTweetsEvent.remove();
+            
+            seeMoreTweetsEvent = setTweetsSeeMoreBlock();
+            
+            seeMoreTweetsEvent.addEventListener('click', () => {
+              seeMoreTweetsElementEventHandler();
+            });
+          } else {
+            seeMoreTweetsEvent.remove();
+          }
+        }
+      }
+      
+      const seeMoreTweetsElementEventHandler = seeMoreTweetsElementEvent();
+      
+      seeMoreTweetsEvent.addEventListener('click', () => {
+        seeMoreTweetsElementEventHandler()
+      })
     })
   } else {
     if(wasSignedIn === true) {

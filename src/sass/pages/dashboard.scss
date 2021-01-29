@@ -127,4 +127,22 @@
       @include loadingBefore(4rem);
     }
   }
+  
+  &__tweetSeeMore {
+    text-align: center;
+    padding: 1rem 0;
+    margin: 1rem 0;
+    cursor: pointer;
+    transition: all .3s;
+    color: $color-primary;
+    user-select: none;
+    
+    &:hover {
+      background-color: rgba($color-primary, .1);
+    }
+    
+    &:active {
+      background-color: rgba($color-primary, .2);
+    }
+  }
 }

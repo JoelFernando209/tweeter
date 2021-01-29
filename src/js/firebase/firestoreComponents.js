@@ -17,6 +17,26 @@ export const setDocWithKey = ({ collectionTarget, keyDoc, docContent, configDoc 
   )
 };
 
+export const setUserBasicInfo = user => {
+  if(user) {
+    const dataUser = firestore.collection('userData').doc(user.uid);
+    
+    dataUser
+      .get()
+      .then(doc => {
+        if(!doc.exists) {
+          dataUser.set({
+            bio: 'Not defined',
+            uid: user.uid,
+            name: user.displayName,
+            phone: 'Not defined',
+            photoUrl: user.photoURL
+          })
+        }
+      })
+  }
+};
+
 export const changeTweetsName = (newName) => {
   firestore
     .collection('tweets')

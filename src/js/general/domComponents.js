@@ -21,6 +21,18 @@ export const setCommentsBlock = (newTweetPost) => {
   return commentMoreElement;
 };
 
+export const setTweetsSeeMoreBlock = () => {
+  const tweetPosts = document.querySelector('.dashboard__tweetPosts');
+  const commentTweetMore = document.createElement('div');
+  commentTweetMore.className = 'dashboard__tweetSeeMore';
+  commentTweetMore.innerHTML = 'See more tweets...';
+  
+  tweetPosts.appendChild(commentTweetMore);
+  
+  return commentTweetMore;
+};
+
+
 export const changeColorWhenClick = (element, defaultColor, newColor, path, lastPath) => {
   let eventHandler = false;
   const elementIcon = element.querySelector('.post__optionsIcon');
@@ -120,6 +132,16 @@ export const prependChild = ({ domElement, parentToPrependClass, tweetId }) => {
   const parentToPrependElement = document.querySelector(parentToPrependClass);
   
   parentToPrependElement.prepend(domElement);
+  
+  return {
+    domElement
+  }
+};
+
+export const appendChild = ({ domElement, parentToPrependClass, tweetId }) => {
+  const parentToAppendElement = document.querySelector(parentToPrependClass);
+  
+  parentToAppendElement.appendChild(domElement);
   
   return {
     domElement

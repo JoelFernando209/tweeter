@@ -1,6 +1,6 @@
 import { createProcess, setLoadingPage, removeLoadingPage, formatName } from './general/generalFunc.js';
 import { actualUrl } from './actualUrl.js';
-import { uploadTweet, setPhotoTweet, resetPhotoTweet, getPhotoTweets, changeStatusVisibility, setCommentEvent } from './firebase/firestoreComponents.js';
+import { uploadTweet, setPhotoTweet, resetPhotoTweet, getPhotoTweets, changeStatusVisibility, setCommentEvent, setUserBasicInfo } from './firebase/firestoreComponents.js';
 import { setOptionsItemColorEvent, setOptionEventsTweets } from './tweet/tweetStyleComponents.js';
 import { createNewTweetElement, prependChild, profileMenuHandler, createImg, removeAllChildNodes, putGridClass, toggleElementClick, setNewDomComment, setCommentsBlock } from './general/domComponents.js';
 import { uploadNormalImg, createRef, deleteAllFilesFromFolder } from './firebase/storageComponents.js';
@@ -27,6 +27,8 @@ let wasSignedIn = false; // To show other message when signed out and dont to re
 let doTweetWasSubmitted = false;
 
 firebase.auth().onAuthStateChanged(user => {
+  setUserBasicInfo(user);
+  
   if(user && user.emailVerified) {
     const headerName = document.querySelector('.header__name');
     const headerProfile = document.querySelector('.header__img-profile');
